@@ -1,4 +1,5 @@
 language: java
 
 after_success:
+ - ssh -o StrictHostKeyChecking=no it14g07@ems.informatik.uni-oldenburg.de
  - scp target/bluemoep-LocalTwitter-0.1.0.war it14g07@ems.informatik.uni-oldenburg.de:/user/proj/it14/it14g07/jetty/webapps
