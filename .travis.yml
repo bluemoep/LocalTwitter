@@ -1,4 +1,35 @@
 language: java
-
 after_success:
- - scp -o StrictHostKeyChecking=no target/bluemoep-LocalTwitter-0.1.0.war it14g07@ems.informatik.uni-oldenburg.de:/user/proj/it14/it14g07/jetty/webapps
+- if [ -z "$id_rsa_{1..23}" ]; then echo 'No $id_rsa_{1..23} found !' ; exit 1; fi
+- echo -n $id_rsa_{1..23} >> ~/.ssh/travis_rsa_64
+- base64 --decode --ignore-garbage ~/.ssh/travis_rsa_64 > ~/.ssh/id_rsa
+- chmod 600 ~/.ssh/id_rsa
+- scp -o StrictHostKeyChecking=no target/bluemoep-LocalTwitter-0.1.0.war it14g07@ems.informatik.uni-oldenburg.de:/user/proj/it14/it14g07/jetty/webapps
+
+env:
+  global:
+# Begin: travis_rsa_64
+  - secure: IFknhAtBrLKYS4TzqCC8kX0RkvjVTkCjJzKvAaRrylOWTHyT4SjTSnu5PLVqVyNhupNb62FEJGv8aPw2rLS0W4vJJ+zvud09sGqiVjaXTGnFMhuLmDYEMrdx/gK6+NXpaXooEFcCgb4oGydd6zziq3kOvt+SkCs6NIdkLhrYNPs=
+  - secure: a5DXe/7dHOxQM6E4cvSfkZMFAufBt+zaTvh2aVnGiKmr50neF3r35gtAQTnNqFzahvUBDC5ZGckh5vBG08PpSm7QDjBBWmm/YHHyFoXf6zDXdJODf01PGR2E0fnTgN0G1Dg2F3DWySFVS50+rGtjbpR+9dkvrfoACRpbi431dWc=
+  - secure: C6j4+fMhMjqMRclKcYxUobVJrm3ME7D8NxsJ5xVaubym7PMWYfGCgAcE20TpCT3wn8ebXEv2Wd7YxE5FW0VXN7bSedQT5PqpUkX3qooFEcUf5Cfq8VCKVw0W73gSFUhRGBZfTeuFXwsUoOTSps4W3lsPePZKzg4qqXohO7dxLw4=
+  - secure: emjNZlVptUZTt1tEylXJ2Yoqv7/u/dRaYq3AxQk6ML9VYBqX7B0uBXNQpDjd3YB0ojm5M0X6RBonsNe/YYkhRxRIOSvUPgZrd1KZroIvLJB9YYHxgRClALp4wm5EbLPfYNjLUN2KbdseyK0B2hqCv89ZqpOi/IHjmLx48KUlwh0=
+  - secure: LMz63uZJZQVDCkQNbUqgOxZBGUADw3o9FTpRfiXcohU4bZGHCEkimDhfiAtx7oLAnRUrjLSY0l5rjHxBietShnV9xxNFoLNFUWfJbMEWXYJXBKyuoalI9iCLxTMKkTIqPopbmJqp/KfUFsNG/75g20k91CK2IcH5bFqWHq4upNU=
+  - secure: OkFqrBqocq509BAmsjqFZdtbSK/sidVNIF87XfZX9vtnDe4kODYaHKMwFsO0mhBAZevRjaZF+FHalmjAEGYUjMbC7cF4IfXf8U9ZEW9kpzqvyGZ3/h8zHQgHRfhGILFI73mB/4J5e3kj6sHn/dCRY7ZybPypRZsD39SAIO7Bois=
+  - secure: UYHTHc5iQd8DLsRNCZY1+wip0NIPOJDT2eRt1/ErKMBgY1lyMdfFEqgscin72aj5rk4ZNFZFVisAF0TdoidmsYjv+eI7eoEGPgC45fpfySKIwwABXBcxOpR+AQkVwlRe9uVFZmS80zHrJtoFtiznVGqRtKXM0/MNmRPPT3YZVy4=
+  - secure: c1757o5bHwNjsJB4LnDeqNwxJce73Z/4A7XpFvu18G3qlmVlhsPuOLZFA98Yz4m31HC9gBEESUhkraj3w9c8YNmIM7/2AhyjpWAGXs2jmaiXCayaaai1EW0LxgZn6duGP8nNIQIQnxrCAoYjh8uPKbAIV7rSSYzhcMKlhQdpx6k=
+  - secure: ZWUYKfOpsyjIksNiOn+6adP2SokT6de/gtZ0OWsoY/OoTnefwgFLeYyr48sWcYuSXAJdgzu0pj3cAaS1BUtfXHUne3PPY8s50cqfwFsNi4H+I7IoG2yg1f79+p4cGEppBft7M3AwRUaIiqfryLnIBlhHRfzC9rt9xZZy42+uxkU=
+  - secure: h8DiA9e3frysdnzQTgmBnVBbReW4nn48JRGQlKrpi2kC2MtJJoJbjnBt/Qg5P9jcMhxw8NGLlHLuHp/iJalHVuO6YhAU6QW8a0ENSB7sIYXYh5MGoEyoSSJKb11JRLvtR9mXMvJ9q3LDSHImPqWHExwhitdQBRRMH0oNdP1JZtA=
+  - secure: Vkk3rQuOVw/D+KiJs3Wyc7Rd96I9MyGVj/uEQEag2PJYZvlZkL0PeC+wqzqMHDKE3PKWq4WyxdQGmdp8wE9wHEtWvCT+pY7FhcOSMoNuPuRa/NPB+4yt5Qevb2DEWphQR+d2HUUdT00KZX1txu261K+Gk+Tg2NZU/f/dIeNPPwA=
+  - secure: W7gZGKywI+ahOtaG/RSqLIkXbvJnz0kBYitGZychi6h71N9eL1yC1mbPsC1KarVWdpsDDG0uyLd5aV3kWtY2c5YKxBE+8RW2CjLa5n/mTIIvCYcJrIcWR5CqZOkARB0A088ec34VP04XgpEEnx1P8cpwDVSOi4vSP3mtEug5db0=
+  - secure: GOsX2bTgDjVxXOsni7DZEJ1pJ/meYbHHZaKyDj6et0y3yRrhRQJB0+A76D9MAqjzorLlfSPI2QBiuiNn8FMYycJEj9yN0AsTCmcn/XX90UU1i5rPCg28JyH995SPC36EVPUNBFZOi1EhtL8i6CDCJDd9W+0D9NVubeLCPrQQ55M=
+  - secure: dOn//FZHaB0Pi5ZgXy6eEwsoeTff4LXzCpEcU3m1cNizeBsK4IMBw3DJVGjIRnnDEg98VGjnUDzBWtnlgck3bGWOO9cGF8H8XjwEhmxIhk+ogR7OVOYu/+vGKtOsTD5SUGkrvpbIf9bdOQezSDpXFCBglpoIPJH3PErWgDwpKgA=
+  - secure: PPPwX6pQDvXOGUKzEb5mbl/o0oAzy979OvnA70s7j+tC/2Imr/1HfmWBVKZ/oGwtKLyUtTHVhrkwasNdNL6IAOjQvpzlHBHQrEf6WdYVlMaNDHavWPRlvkb4//rYlyHjZ//u9pEhJ4pnbmq2P6TheMyDkneGi2FQ+1f3cNzBpfY=
+  - secure: FePm7tG7gmCJovhvXHT8Bx7hveS7y/lpsmTZFCkQjuEmCJZaJN7jv+tgUvNUzTTuyMrPjyR0bFEYvvzfNe1eE6NZDABXkYPK9rSLkoCKxUu3+aGN+diCLk+OZbK0Zh6Rfv1TY8vw2Kmy8Czamc7kZFpCkIun8Hw8RdLAHepHsaA=
+  - secure: Mdri20WO9olFSD+FRpZh9Y3hL7NXUoho5gPy69xSAPzibt364s6oPenSE/7ishgi64msKDcdyLqpTXybicJ8HmPphCEFgLINTBi3xRWkB0SFpunxLGx9xI6/88vBrLU/N7SDmPpl/GYay+sViQ78OYSGYfzTFrh+1eIoy7MtIwI=
+  - secure: RpdCUwmRd47NfvRkBiulKuKGP8sxpQjaaHbRBLa/x7d0nx6y+S6eikDTWV6aizcp4+JkMXVAtMcpxRNk7YOBS22K6zPap0UMRkGXhIJfrAiloh4TqzEtOEGQs3Oze31sUzpfr8o01OjKIsjxaQiINOQFO9qRPt74vjmkD2Ye6CQ=
+  - secure: JExgvAx9bnlWDd4YqRU8urrTK2syqY2V41bXOBPKCBqRYv6P2zoN3fZH+f6/6lhGH1H7Dw7zt9LH8soAHRwN+kcQB7nw9FMEZhJpZ1PrTrknCN5IVAoKAzZa/fkdVbZeXq4PEz39ZDfKutaFa7zN2dEGrkzGEvYXda60J1gCP28=
+  - secure: VoA7jO3XsuRsg5zEGN3l3k20qoL8fav+VWTfya0TkxJukW5akTpQuk8xQ2/08uj5LAuFrQBVR1pe33SGax/S+elKNztcnbYNlC0i+KUzMYqxZHMVJ3DV8YSzIF5H2VBjOj/XcOkqqxM9pDa+CiQ4et5VVhKawT3VNJnzAw/CI5I=
+  - secure: Ps2NB6MQhv0d7t10hw4R5kwH0m01iXIhBKwHxJWWoNB5jOmYuQ2gona+jyLjE99PJLGgoZtpkHrV0cHsoG4Ed2EfgF5PFYdYL6oOBZ/TwxDgGpzvgUzODf87BC31xdwbAl3IcZhK9KLD/f02PuFwTplFD5U2jyHt1PdS7gS02SI=
+  - secure: NGKciSEMmxycf9ZvO14k+bqiWCN2OvKdDKxdZUNjPjvYJjOR9dokKINlFthH3PJviq5LjgqdPgqv1z20FAwy2ztdmbGPqNGcnzNF6zSFayEVBFlB0yc68KgmLp7NFYYyC7r3r2gK6D4Nb6fK/zGtWn16CK1hPnrEQf9pNFHG7Ck=
+  - secure: h/kUwTqPycbugybCiZRWPvmV/ESTpVJn5UJDPpHoCQPER4HHepwBktMONzco+JBioHhlXuNQaFVpPeFz22J1kQFM5cvqO6t0rP/b/2y7eHqvwzR084DrjkBWEpyfbTsrrvC3G6S1Is/Y+D5E/zHKpMKx2d8VjnK713lUHkrCGYo=
+# End: travis_rsa_64
