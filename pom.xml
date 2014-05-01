@@ -6,6 +6,7 @@
 	<artifactId>bluemoep-LocalTwitter</artifactId>
 	<packaging>war</packaging>
 	<version>0.1.0</version>
+	<url>http://ems.informatik.uni-oldenburg.de:5407/</url>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -27,6 +28,11 @@
 				<version>2.4</version>
 				<configuration>
 					<webXml>WebContent/WEB-INF/web.xml</webXml>
+					<webResources>
+						<resource>
+							<directory>WebContent</directory>
+						</resource>
+					</webResources>
 				</configuration>
 			</plugin>
 		</plugins>
