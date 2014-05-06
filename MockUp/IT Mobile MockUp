@@ -1,0 +1,65 @@
+<mockup version="1.0" skin="sketch" fontFace="Balsamiq Sans" measuredW="1908" measuredH="1067" mockupW="1908" mockupH="1067">
+  <controls>
+    <control controlID="47" controlTypeID="com.balsamiq.mockups::iPhone" x="0" y="0" w="830" h="1067" measuredW="282" measuredH="573" zOrder="0" locked="false" isInGroup="-1">
+      <controlProperties>
+        <model>IPhone5</model>
+      </controlProperties>
+    </control>
+    <control controlID="48" controlTypeID="com.balsamiq.mockups::Map" x="201" y="184" w="421" h="725" measuredW="252" measuredH="222" zOrder="1" locked="false" isInGroup="-1"/>
+    <control controlID="49" controlTypeID="com.balsamiq.mockups::Button" x="201" y="184" w="-1" h="-1" measuredW="48" measuredH="48" zOrder="2" locked="false" isInGroup="-1">
+      <controlProperties>
+        <bold>true</bold>
+        <size>40</size>
+        <text>+</text>
+      </controlProperties>
+    </control>
+    <control controlID="50" controlTypeID="com.balsamiq.mockups::Icon" x="400" y="310" w="-1" h="-1" measuredW="48" measuredH="48" zOrder="3" locked="false" isInGroup="-1"/>
+    <control controlID="51" controlTypeID="com.balsamiq.mockups::Icon" x="411" y="508" w="-1" h="-1" measuredW="48" measuredH="48" zOrder="4" locked="false" isInGroup="-1"/>
+    <control controlID="52" controlTypeID="com.balsamiq.mockups::IconLabel" x="530" y="605" w="-1" h="-1" measuredW="90" measuredH="63" zOrder="5" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>MessageGroup</text>
+      </controlProperties>
+    </control>
+    <control controlID="53" controlTypeID="com.balsamiq.mockups::Icon" x="289" y="695" w="-1" h="-1" measuredW="48" measuredH="48" zOrder="6" locked="false" isInGroup="-1"/>
+    <control controlID="55" controlTypeID="com.balsamiq.mockups::iPhone" x="540" y="0" w="830" h="1067" measuredW="282" measuredH="573" zOrder="7" locked="false" isInGroup="-1">
+      <controlProperties>
+        <model>IPhone5</model>
+      </controlProperties>
+    </control>
+    <control controlID="56" controlTypeID="com.balsamiq.mockups::TextArea" x="743" y="184" w="420" h="367" measuredW="200" measuredH="140" zOrder="8" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>message</text>
+      </controlProperties>
+    </control>
+    <control controlID="57" controlTypeID="com.balsamiq.mockups::iPhoneKeyboard" x="743" y="556" w="420" h="353" measuredW="226" measuredH="160" zOrder="9" locked="false" isInGroup="-1"/>
+    <control controlID="58" controlTypeID="com.balsamiq.mockups::Button" x="1078" y="505" w="85" h="41" measuredW="53" measuredH="27" zOrder="10" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Send</text>
+      </controlProperties>
+    </control>
+    <control controlID="59" controlTypeID="com.balsamiq.mockups::iPhone" x="1078" y="0" w="830" h="1067" measuredW="282" measuredH="573" zOrder="11" locked="false" isInGroup="-1">
+      <controlProperties>
+        <model>IPhone5</model>
+      </controlProperties>
+    </control>
+    <control controlID="60" controlTypeID="com.balsamiq.mockups::Map" x="1283" y="184" w="421" h="725" measuredW="252" measuredH="222" zOrder="12" locked="false" isInGroup="-1"/>
+    <control controlID="62" controlTypeID="com.balsamiq.mockups::Icon" x="1482" y="310" w="-1" h="-1" measuredW="48" measuredH="48" zOrder="13" locked="false" isInGroup="-1"/>
+    <control controlID="63" controlTypeID="com.balsamiq.mockups::Icon" x="1493" y="508" w="-1" h="-1" measuredW="48" measuredH="48" zOrder="14" locked="false" isInGroup="-1"/>
+    <control controlID="64" controlTypeID="com.balsamiq.mockups::IconLabel" x="1612" y="605" w="-1" h="-1" measuredW="90" measuredH="63" zOrder="15" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>MessageGroup</text>
+      </controlProperties>
+    </control>
+    <control controlID="65" controlTypeID="com.balsamiq.mockups::Icon" x="1371" y="695" w="-1" h="-1" measuredW="48" measuredH="48" zOrder="16" locked="false" isInGroup="-1"/>
+    <control controlID="66" controlTypeID="com.balsamiq.mockups::TextArea" x="1283" y="184" w="420" h="367" measuredW="200" measuredH="140" zOrder="17" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>message</text>
+      </controlProperties>
+    </control>
+    <control controlID="67" controlTypeID="com.balsamiq.mockups::Button" x="1612" y="499" w="90" h="48" measuredW="56" measuredH="27" zOrder="18" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Close</text>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>
