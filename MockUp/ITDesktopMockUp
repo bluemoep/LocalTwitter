@@ -1,0 +1,35 @@
+<mockup version="1.0" skin="sketch" fontFace="Balsamiq Sans" measuredW="1920" measuredH="1080" mockupW="1920" mockupH="1080">
+  <controls>
+    <control controlID="68" controlTypeID="com.balsamiq.mockups::BrowserWindow" x="0" y="0" w="1920" h="1080" measuredW="450" measuredH="400" zOrder="0" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Local%20Twitter%0Ahttp%3A//ems.informatik.uni-oldenburg.de%3Axxxx/</text>
+      </controlProperties>
+    </control>
+    <control controlID="69" controlTypeID="com.balsamiq.mockups::Map" x="0" y="69" w="1920" h="984" measuredW="252" measuredH="222" zOrder="1" locked="false" isInGroup="-1"/>
+    <control controlID="70" controlTypeID="com.balsamiq.mockups::Icon" x="639" y="501" w="-1" h="-1" measuredW="48" measuredH="48" zOrder="2" locked="false" isInGroup="-1"/>
+    <control controlID="71" controlTypeID="com.balsamiq.mockups::Icon" x="689" y="449" w="-1" h="-1" measuredW="48" measuredH="48" zOrder="3" locked="false" isInGroup="-1"/>
+    <control controlID="72" controlTypeID="com.balsamiq.mockups::Icon" x="1337" y="387" w="-1" h="-1" measuredW="48" measuredH="48" zOrder="4" locked="false" isInGroup="-1"/>
+    <control controlID="73" controlTypeID="com.balsamiq.mockups::Icon" x="929" y="746" w="-1" h="-1" measuredW="48" measuredH="48" zOrder="5" locked="false" isInGroup="-1"/>
+    <control controlID="74" controlTypeID="com.balsamiq.mockups::Icon" x="1320" y="708" w="-1" h="-1" measuredW="48" measuredH="48" zOrder="6" locked="false" isInGroup="-1"/>
+    <control controlID="75" controlTypeID="com.balsamiq.mockups::IconLabel" x="1687" y="467" w="-1" h="-1" measuredW="90" measuredH="63" zOrder="7" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>MessageGroup</text>
+      </controlProperties>
+    </control>
+    <control controlID="76" controlTypeID="com.balsamiq.mockups::TextArea" x="0" y="69" w="-1" h="-1" measuredW="200" measuredH="140" zOrder="8" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>message</text>
+      </controlProperties>
+    </control>
+    <control controlID="77" controlTypeID="com.balsamiq.mockups::Button" x="147" y="183" w="-1" h="-1" measuredW="53" measuredH="27" zOrder="9" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Send</text>
+      </controlProperties>
+    </control>
+    <control controlID="78" controlTypeID="com.balsamiq.mockups::iPadPopover" x="552" y="536" w="-1" h="-1" measuredW="222" measuredH="187" zOrder="10" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>message</text>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>
