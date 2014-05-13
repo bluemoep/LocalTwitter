@@ -9,13 +9,18 @@
 		
 		<link rel="SHORTCUT ICON" href="favicon.png" type="img/favicon.png" />
 		<title>LocalTwitter</title>
-		<link type="text/css" rel="stylesheet" href="css/all.css" />
-		<link type="text/css" rel="stylesheet" href="css/handheld.css" media="handheld" />
+		<link type="text/css" rel="stylesheet" href="css/all.css"/>
+		<link type="text/css" rel="stylesheet" href="css/handheld.css" media="handheld, (max-width: 800px)" />
+		<script language="javascript" type="text/javascript" src="jquery-2.1.1.min.js"></script>
+		<script language="javascript" type="text/javascript" src="js.js"></script>
 	</head>
 	<body>
+		<div id="bubble"><img src="image/bubble.png"></div>
 		<section id="messagebox">
 			<form>
 				<textarea>Hallo</textarea>
+				<div id="back"><img src="image/back.png"></div>
+				<div id="lettersleftbox"><span id="lettersleft">160</span>/160</div>
 				<input type="submit" name="submit" value="Senden" />
 			</form>
 		</section>

@@ -10,6 +10,14 @@
 	z-index: 0;
 }
 
+#bubble {
+	display: none;
+}
+
+#back {
+	display: none;
+}
+
 #messagebox {
 	position: absolute;
 	top: 0px;
@@ -18,7 +26,10 @@
 	width: 25%;
 	background-color: #fff;
 	overflow: hidden;
-	z-index: 1;
+	z-index: 2;
+	border-right: 4px outset #fff;
+	border-bottom: 4px outset #fff;
+	border-bottom-right-radius: 17px;
 }
 
 @media (max-width: 1600px) {
@@ -52,21 +63,42 @@
 
 #messagebox textarea {
 	width: 100%;
-	height: calc(100% - 25px);
+	height: calc(100% - 30px);
 	margin: 0px;
-	padding: 0px;
+	padding: 5px;
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
+	resize: none;
+	background-color: #fff;
+	border: none;
+	border-bottom: 1px solid #000;
 }
 
 #messagebox input {
 	width: 100px;
-	height: 25px;
+	height: 30px;
 	padding: 0px;
 	margin: 0px;
 	box-sizing: border-box;
 	position: absolute;
 	right: 0px;
 	bottom: 0px;
+	background-color: #fff;
+	border-bottom-right-radius: 12px;
+	border: none;
+	border-left: 1px solid #000;
+}
+
+#lettersleftbox {
+	text-align: right;
+	height: 30px;
+	width: calc(100% - 105px);
+	position: absolute;
+	box-sizing: border-box;
+	right: 105px;
+	bottom: 0px;
+	overflow: hidden;
+	color: #999;
+	padding-top: 4px;
 }
