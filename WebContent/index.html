@@ -9,10 +9,15 @@
 		
 		<link rel="SHORTCUT ICON" href="favicon.png" type="img/favicon.png" />
 		<title>LocalTwitter</title>
-		<link type="text/css" rel="stylesheet" href="css/all.css"/>
-		<link type="text/css" rel="stylesheet" href="css/handheld.css" media="handheld, (max-width: 800px)" />
-		<script language="javascript" type="text/javascript" src="jquery-2.1.1.min.js"></script>
-		<script language="javascript" type="text/javascript" src="js.js"></script>
+		<link rel="stylesheet" href="css/all.css"/>
+		<link rel="stylesheet" href="css/handheld.css" media="handheld, (max-width: 800px)" />
+		<!-- 
+		NOT IN REPOSITORY!
+		<script src="jquery-2.1.1.min.js"></script>
+		-->
+		<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAkcLkOaEglGCxhPKf7ct3CInN4-y_ADlI&sensor=false"></script>
+    	<script src="LTmap.js"></script>
+		<script src="js.js"></script>
 	</head>
 	<body>
 		<div id="bubble"><img src="image/bubble.png"></div>
@@ -20,7 +25,7 @@
 			<form>
 				<textarea>Hallo</textarea>
 				<div id="back"><img src="image/back.png"></div>
-				<div id="lettersleftbox"><span id="lettersleft">160</span>/160</div>
+				<div id="lettersleftbox"><span id="lettersleft">160</span>&nbsp;/&nbsp;160</div>
 				<input type="submit" name="submit" value="Senden" />
 			</form>
 		</section>
