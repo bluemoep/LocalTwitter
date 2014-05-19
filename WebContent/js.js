@@ -15,8 +15,7 @@ $(document).ready(function() {
 	$('#overlay .nojs').hide();
 	$('#overlay .search').show();
 	// TODO: Geolocation
-	// onsuccess: 
-	$('#overlay').hide();
+	// onsuccess: $('#overlay').hide();
 	// onfailure: $('#overlay .search').hide();
 	// onfailure: $('#overlay .notfound').show();
 	
