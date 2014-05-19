@@ -12,6 +12,8 @@ function LTmap() {
 	LTmap.lng = '8.180434';
 	LTmap.zoom = 4;
 
+	var firstSetLocation = true;
+	
 	// Initialize map with defaults
 	var map = new google.maps.Map(document.getElementById(LTmap.elementId), {
 		zoom : LTmap.zoom,
@@ -44,6 +46,14 @@ function LTmap() {
 		google.maps.event.addListener(marker, 'click', function() {
 			marker.message.open(map, marker);
 		});
+	};
+	
+	this.setLocation = function(lat, lng) {
+		map.setCenter(new google.maps.LatLng(lat, lng));
+		if(firstSetLocation) {
+			firstSetLocation = false;
+			map.setZoom(16);
+		}
 	};
 
 }
