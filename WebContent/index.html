@@ -1,36 +1,53 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
-		<meta name="description" content="Hier kommt die Beschreibung hin">
-		<meta name="keywords" content="LocalTwitter Twitter Local">
-		<meta name="content-language" content="de">
-		<meta name="robots" content="index, follow">
-		
-		<link rel="SHORTCUT ICON" href="favicon.png" type="img/favicon.png" />
-		<title>LocalTwitter</title>
-		<link rel="stylesheet" href="css/all.css"/>
-		<link rel="stylesheet" href="css/handheld.css" media="handheld, (max-width: 800px)" />
-		<!-- 
-		NOT IN REPOSITORY!
-		<script src="jquery-2.1.1.min.js"></script>
-		-->
-		<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAkcLkOaEglGCxhPKf7ct3CInN4-y_ADlI&sensor=false"></script>
-    	<script src="LTmap.js"></script>
-		<script src="js.js"></script>
-	</head>
-	<body>
-		<div id="bubble"><img src="image/bubble.png"></div>
-		<section id="messagebox">
-			<form>
-				<textarea>Hallo</textarea>
-				<div id="back"><img src="image/back.png"></div>
-				<div id="lettersleftbox"><span id="lettersleft">140</span>&nbsp;/&nbsp;140</div>
-				<input type="submit" name="submit" value="Senden" />
-			</form>
-		</section>
-		<section id="map">
+<head>
 
-		</section>
-	</body>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<meta name="description" content="Hier kommt die Beschreibung hin">
+<meta name="keywords" content="LocalTwitter Twitter Local">
+<meta name="content-language" content="de">
+<meta name="robots" content="index, follow">
+
+<link rel="SHORTCUT ICON" href="favicon.png" type="img/favicon.png" />
+<title>LocalTwitter</title>
+<link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" href="css/all.css" />
+<link rel="stylesheet" href="css/handheld.css" media="handheld, (max-width: 800px)" />
+<script src="jquery-2.1.1.min.js"></script>
+<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAkcLkOaEglGCxhPKf7ct3CInN4-y_ADlI&sensor=false"></script>
+<script src="LTmap.js"></script>
+<script src="js.js"></script>
+
+</head>
+<body>
+	<div id="overlay">
+		<div>
+			<div class="nojs">
+				<i class="fa fa-exclamation-triangle"></i> Bitte aktivieren Sie JavaScript!
+			</div>
+			<div class="search">
+				<i class="fa fa-circle-o-notch fa-spin"></i> Suche Standort …
+			</div>
+			<div class="notfound">
+				<i class="fa fa-exclamation-triangle"></i> Standort konnte nicht gefunden werden!
+			</div>
+		</div>
+	</div>
+	<div id="bubble">
+		<img src="image/bubble.png">
+	</div>
+	<section id="messagebox">
+		<form>
+			<textarea>Hallo</textarea>
+			<div id="back">
+				<img src="image/back.png">
+			</div>
+			<div id="lettersleftbox">
+				<span id="lettersleft">140</span>&nbsp;/&nbsp;140
+			</div>
+			<input type="submit" name="submit" value="Senden" />
+		</form>
+	</section>
+	<section id="map"></section>
+</body>
 </html>

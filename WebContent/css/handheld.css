@@ -1,5 +1,9 @@
 @charset "UTF-8";
 
+#overlay {
+	font-size: 32pt;
+}
+
 #messagebox {
 	width: 100%;
 	height: 50%;
