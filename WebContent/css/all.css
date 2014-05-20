@@ -115,6 +115,7 @@ body {
 	resize: none;
 	background-color: #fff;
 	border: none;
+	border-radius: 0px;
 	border-bottom: 1px solid #000;
 }
 
@@ -128,6 +129,7 @@ body {
 	right: 0px;
 	bottom: 0px;
 	background-color: #fff;
+	border-radius: 0px;
 	border-bottom-right-radius: 12px;
 	border: none;
 	border-left: 1px solid #000;
