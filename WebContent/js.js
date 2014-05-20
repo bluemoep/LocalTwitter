@@ -2,7 +2,7 @@ $(document).ready(function() {
 	
 	// Character limit
 	$('#messagebox textarea').on('input propertychange', function() {
-	    $('#lettersleft').html($(this).attr('maxlength') - $(this).val().length);
+		$('#lettersleft').html($(this).attr('maxlength') - $(this).val().length);
 	});
 	$('#messagebox textarea').trigger('input');
 	
@@ -21,4 +21,12 @@ $(document).ready(function() {
 	// GeoLocation
 	new GeoLocation();
 	
+	$("#bubble").click(function(){
+		$("#messagebox").show('slow');
+		$("#messagebox").find("textarea").focus();
+	});
+	
+	$("#back").click(function(){
+		$("#messagebox").hide('slow');
+	});
 });
