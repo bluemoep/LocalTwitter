@@ -21,7 +21,7 @@ function GeoLocation() {
 	var geolocate = function() {
 		navigator.geolocation.watchPosition(success, failure, {
 			enableHighAccuracy : true,
-			timeout : 2000,
+			timeout : 60000,
 			maximumAge : 0
 		});
 	};
