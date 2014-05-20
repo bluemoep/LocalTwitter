@@ -30,3 +30,11 @@ $(document).ready(function() {
 		$("#messagebox").hide();
 	});
 });
+
+//Radius in Metern
+function checkRadius(messageWidth, messageLength, positionWidth, positionLength, radius) {
+	var deltaWidth = messageWidth - positionWidth;
+	var deltaLength = messageLength - positionLength;
+	var d = deltaWidth / (Math.cos(Math.atan(deltaLength / deltaWidth * Math.cos(messageWidth)));
+	return d * 1853 <= radius;
+}
