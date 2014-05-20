@@ -22,11 +22,11 @@ $(document).ready(function() {
 	new GeoLocation();
 	
 	$("#bubble").click(function(){
-		$("#messagebox").show('slow');
+		$("#messagebox").show();
 		$("#messagebox").find("textarea").focus();
 	});
 	
 	$("#back").click(function(){
-		$("#messagebox").hide('slow');
+		$("#messagebox").hide();
 	});
 });
