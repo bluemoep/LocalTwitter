@@ -13,6 +13,7 @@ function LTmap() {
 	LTmap.zoom = 4;
 
 	var firstSetLocation = true;
+	var center = new google.maps.LatLng(LTmap.lat, LTmap.lng);
 	
 	// Initialize map with defaults
 	var map = new google.maps.Map(document.getElementById(LTmap.elementId), {
@@ -49,9 +50,10 @@ function LTmap() {
 	};
 	
 	this.setLocation = function(lat, lng) {
-		map.setCenter(new google.maps.LatLng(lat, lng));
+		center = new google.maps.LatLng(lat, lng);
 		if(firstSetLocation) {
 			firstSetLocation = false;
+			map.setCenter(center);
 			map.setZoom(16);
 		}
 	};
