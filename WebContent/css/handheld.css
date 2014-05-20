@@ -41,3 +41,9 @@
 #lettersleftbox {
 	width: calc(100% - 135px);
 }
+
+#messagebox input {
+	border-radius: 0px;
+	border-bottom-right-radius: 0px;
+}
+
