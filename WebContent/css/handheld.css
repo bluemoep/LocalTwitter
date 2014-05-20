@@ -12,6 +12,10 @@
 	display: none;
 }
 
+#messagebox.show {
+	display: block;
+}
+
 #bubble {
 	position: absolute;
 	top: 0px;

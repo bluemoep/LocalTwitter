@@ -22,12 +22,12 @@ $(document).ready(function() {
 	new GeoLocation();
 	
 	$("#bubble").click(function(){
-		$("#messagebox").show();
+		$("#messagebox").addClass('show');
 		$("#messagebox").find("textarea").focus();
 	});
 	
 	$("#back").click(function(){
-		$("#messagebox").hide();
+		$("#messagebox").removeClass('show');
 	});
 });
 
