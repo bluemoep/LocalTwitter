@@ -14,7 +14,7 @@ function LTmap() {
 
 	var firstSetLocation = true;
 	var center = new google.maps.LatLng(LTmap.lat, LTmap.lng);
-	
+
 	// Initialize map with defaults
 	var map = new google.maps.Map(document.getElementById(LTmap.elementId), {
 		zoom : LTmap.zoom,
@@ -48,14 +48,25 @@ function LTmap() {
 			marker.message.open(map, marker);
 		});
 	};
-	
+
 	this.setLocation = function(lat, lng) {
 		center = new google.maps.LatLng(lat, lng);
-		if(firstSetLocation) {
+		if (firstSetLocation) {
 			firstSetLocation = false;
+			$('#overlay .loadmap').show();
 			map.setCenter(center);
 			map.setZoom(16);
+			google.maps.event.addListenerOnce(map, 'idle', function() {
+				google.maps.event.addListenerOnce(map, 'tilesloaded', function() {
+					$('#overlay .loadmap').hide();
+					$('#overlay').hide();
+				});
+			});
 		}
 	};
+
+	this.getGoogleMap = function() {
+		return map;
+	}
 
 }

@@ -9,7 +9,7 @@ function GeoLocation() {
 	var success = function(geo) {
 		var map = new LTmap();
 		map.setLocation(geo.coords.latitude, geo.coords.longitude);
-		$('#overlay').hide();
+		$('#overlay .search').hide();
 	};
 
 	var failure = function() {

@@ -43,8 +43,16 @@ body {
 	display: block;
 }
 
-#overlay .fa-exclamation-triangle {
+.yellow {
 	color: #FFBA00;
+}
+
+.green {
+	color: #04B404;
+}
+
+.white {
+	color: #ffffff;
 }
 
 #overlay .fa {
