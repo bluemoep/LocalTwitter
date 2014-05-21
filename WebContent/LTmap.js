@@ -33,20 +33,29 @@ function LTmap() {
 		},
 	});
 
-	this.addMessage = function(message) {
-		var marker = new google.maps.Marker({
-			position : new google.maps.LatLng(message.lat, message.lng),
-			map : map,
-			title : 'Zum Öffnen klicken!',
-		});
+	this.addMessage = function(tweet) {
+		if (tweet.coordinates && tweet.coordinates.type
+				&& tweet.coordinates.type == 'Point'
+				&& tweet.coordinates.coordinates
+				&& tweet.coordinates.coordinates[1]
+				&& tweet.coordinates.coordinates[0]) {
+			var marker = new google.maps.Marker({
+				position : new google.maps.LatLng(
+						tweet.coordinates.coordinates[1],
+						tweet.coordinates.coordinates[0]),
+				map : map,
+				title : 'Zum Öffnen klicken!',
+			});
 
-		marker.message = new google.maps.InfoWindow({
-			content : message.content,
-		});
+			marker.message = new google.maps.InfoWindow({
+				content : $('<div />').addClass('tweet').html(new TweetParser(tweet).parse()).get(0),
+				maxWidth : 150
+			});
 
-		google.maps.event.addListener(marker, 'click', function() {
-			marker.message.open(map, marker);
-		});
+			google.maps.event.addListener(marker, 'click', function() {
+				marker.message.open(map, marker);
+			});
+		}
 	};
 
 	this.setLocation = function(lat, lng) {
@@ -57,10 +66,11 @@ function LTmap() {
 			map.setCenter(center);
 			map.setZoom(16);
 			google.maps.event.addListenerOnce(map, 'idle', function() {
-				google.maps.event.addListenerOnce(map, 'tilesloaded', function() {
-					$('#overlay .loadmap').hide();
-					$('#overlay').hide();
-				});
+				google.maps.event.addListenerOnce(map, 'tilesloaded',
+						function() {
+							$('#overlay .loadmap').hide();
+							$('#overlay').hide();
+						});
 			});
 		}
 	};
