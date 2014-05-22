@@ -14,6 +14,7 @@ function LTmap() {
 
 	var firstSetLocation = true;
 	var center = new google.maps.LatLng(LTmap.lat, LTmap.lng);
+	var circle = null;
 
 	// Initialize map with defaults
 	var map = new google.maps.Map(document.getElementById(LTmap.elementId), {
@@ -48,7 +49,8 @@ function LTmap() {
 			});
 
 			marker.message = new google.maps.InfoWindow({
-				content : $('<div />').addClass('tweet').html(new TweetParser(tweet).parse()).get(0),
+				content : $('<div />').addClass('tweet').html(
+						new TweetParser(tweet).parse()).get(0),
 				maxWidth : 150
 			});
 
@@ -64,7 +66,28 @@ function LTmap() {
 			firstSetLocation = false;
 			$('#overlay .loadmap').show();
 			map.setCenter(center);
-			map.setZoom(16);
+			circle = new google.maps.Circle({
+				strokeColor : '#00f',
+				strokeOpacity : 0.8,
+				strokeWeight : 4,
+				fillColor : '#00f',
+				fillOpacity : 0,
+				map : map,
+				center : center,
+				radius : 2000
+			});
+			circle.dot = new google.maps.Circle({
+				strokeColor : '#f00',
+				strokeOpacity : 0.8,
+				strokeWeight : 20,
+				fillColor : '#f00',
+				fillOpacity : 0,
+				map : map,
+				center : center,
+				radius : 0
+			});
+			map.fitBounds(circle.getBounds());
+			map.setZoom(map.getZoom() + 1);
 			google.maps.event.addListenerOnce(map, 'idle', function() {
 				google.maps.event.addListenerOnce(map, 'tilesloaded',
 						function() {
@@ -72,27 +95,14 @@ function LTmap() {
 							$('#overlay').hide();
 						});
 			});
+		} else {
+			circle.setCenter(center);
+			circle.dot.setCenter(center);
 		}
 	};
 
-	this.setRadius = function(){
-        // Initialize circle defaults
-                 var circleOptions = {
-                         strokeColor: '#FF0000',
-                         strokeOpacity: 0.8,
-                         strokeWeight: 2,
-                         //fillColor: '#FF0000',
-                         fillOpacity: 0.35,
-                         map: map,
-                         center: map.center,
-                         radius: 100
-                 };
-         // Add the circle to map
-                 var mapCircle = new google.maps.Circle(circleOptions);
-         };
-
 	this.getGoogleMap = function() {
 		return map;
-	}
+	};
 
 }
