@@ -17,6 +17,12 @@ function LTmap() {
 	LTmap.lat = '53.147086';
 	LTmap.lng = '8.180434';
 	LTmap.zoom = 4;
+	LTmap.markerUnread = function() {
+		return new google.maps.MarkerImage('http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|FE7569');
+	};
+	LTmap.markerRead = function() {
+		return new google.maps.MarkerImage('http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|E0E0E0');
+	};
 
 	var firstSetLocation = true;
 	var center = new google.maps.LatLng(LTmap.lat, LTmap.lng);
@@ -54,10 +60,12 @@ function LTmap() {
 			if (!circle.contains(position))
 				return;
 
+			var icon = new MessageReadStorage().messageRead(tweet.id_str) ? LTmap.markerRead() : LTmap.markerUnread();
 			var marker = new google.maps.Marker({
 				position : position,
 				map : map,
 				title : 'Zum Öffnen klicken!',
+				icon : icon
 			});
 
 			marker.message = new google.maps.InfoWindow({
@@ -68,6 +76,8 @@ function LTmap() {
 
 			google.maps.event.addListener(marker, 'click', function() {
 				marker.message.open(map, marker);
+				marker.setIcon(LTmap.markerRead());
+				new MessageReadStorage().addMessage(tweet);
 			});
 
 		}
@@ -97,7 +107,7 @@ function LTmap() {
 				fillOpacity : 0,
 				map : map,
 				center : center,
-				radius : 0
+				radius : 1
 			});
 			map.fitBounds(circle.getBounds());
 			map.setZoom(map.getZoom() + 1);

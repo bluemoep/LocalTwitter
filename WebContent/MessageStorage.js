@@ -10,10 +10,10 @@ function MessageStorage() {
 	}
 	MessageStorage.instance = this;
 	
-	var latestMessage = localStorage.getItem('messages');
+	var latestMessage = JSON.parse(localStorage.getItem('messages'));
 	
 	var flush = function() {
-		localStorage.setItem('messages', latestMessage);
+		localStorage.setItem('messages', JSON.stringify(latestMessage));
 	};
 	
 	var flushTimeout = null;

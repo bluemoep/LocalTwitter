@@ -6,10 +6,12 @@ function MessageReadStorage() {
 	}
 	MessageReadStorage.instance = this;
 	
-	var messagesRead = localStorage.getItem('messagesRead');
+	var messagesRead = JSON.parse(localStorage.getItem('messagesRead'));
+	if(messagesRead == null)
+		messagesRead = {};
 	
 	var flush = function() {
-		localStorage.setItem('messagesRead', messagesRead);
+		localStorage.setItem('messagesRead', JSON.stringify(messagesRead));
 	};
 	
 	var flushTimeout = null;
@@ -32,11 +34,7 @@ function MessageReadStorage() {
 	}, 10000);
 	
 	this.addMessage = function(tweet) {
-		if(messagesRead == null)
-			messagesRead = {};
-		
 		messagesRead[tweet.id_str] = new Date(tweet.created_at);
-		
 		flushTimer();
 	};
 	
