@@ -5,9 +5,11 @@ function LTmap() {
 		return LTmap.instance;
 	}
 	LTmap.instance = this;
-	
+
 	google.maps.Circle.prototype.contains = function(latLng) {
-		return this.getBounds().contains(latLng) && google.maps.geometry.spherical.computeDistanceBetween(this.getCenter(), latLng) <= this.getRadius();
+		return this.getBounds().contains(latLng)
+				&& google.maps.geometry.spherical.computeDistanceBetween(this
+						.getCenter(), latLng) <= this.getRadius();
 	};
 
 	// Defaults
@@ -44,10 +46,16 @@ function LTmap() {
 				&& tweet.coordinates.coordinates
 				&& tweet.coordinates.coordinates[1]
 				&& tweet.coordinates.coordinates[0]) {
+
+			var position = new google.maps.LatLng(
+					tweet.coordinates.coordinates[1],
+					tweet.coordinates.coordinates[0]);
+
+			if (!circle.contains(position))
+				return;
+
 			var marker = new google.maps.Marker({
-				position : new google.maps.LatLng(
-						tweet.coordinates.coordinates[1],
-						tweet.coordinates.coordinates[0]),
+				position : position,
 				map : map,
 				title : 'Zum Öffnen klicken!',
 			});
@@ -61,6 +69,7 @@ function LTmap() {
 			google.maps.event.addListener(marker, 'click', function() {
 				marker.message.open(map, marker);
 			});
+
 		}
 	};
 
