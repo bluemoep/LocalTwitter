@@ -7,15 +7,18 @@ function GeoLocation() {
 	GeoLocation.instance = this;
 
 	var success = function(geo) {
-		var map = new LTmap();
-		map.setLocation(geo.coords.latitude, geo.coords.longitude);
 		$('#overlay .search').hide();
+		if(geo.coords.accuracy > 100)
+			new Overlay().show('accuracyProblem');
+		else {
+			new Overlay().hide();
+			var map = new LTmap();
+			map.setLocation(geo.coords.latitude, geo.coords.longitude);
+		}
 	};
 
 	var failure = function() {
-		$('#overlay').show();
-		$('#overlay .search').hide();
-		$('#overlay .notfound').show();
+		new Overlay().show('notfound');
 	};
 
 	var geolocate = function() {
@@ -26,6 +29,7 @@ function GeoLocation() {
 		});
 	};
 
+	new Overlay().show('search');
 	if (typeof (navigator.geolocation) == 'undefined')
 		failure();
 	else

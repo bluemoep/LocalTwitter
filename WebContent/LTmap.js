@@ -77,7 +77,7 @@ function LTmap() {
 		center = new google.maps.LatLng(lat, lng);
 		if (firstSetLocation) {
 			firstSetLocation = false;
-			$('#overlay .loadmap').show();
+			new Overlay().show('loadmap');
 			map.setCenter(center);
 			circle = new google.maps.Circle({
 				strokeColor : '#00f',
@@ -104,8 +104,7 @@ function LTmap() {
 			google.maps.event.addListenerOnce(map, 'idle', function() {
 				google.maps.event.addListenerOnce(map, 'tilesloaded',
 						function() {
-							$('#overlay .loadmap').hide();
-							$('#overlay').hide();
+							new Overlay().hide();
 						});
 			});
 			

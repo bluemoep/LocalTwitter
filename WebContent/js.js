@@ -7,11 +7,7 @@ $(document).ready(function() {
 	$('#messagebox textarea').trigger('input');
 	
 	// Initialize map
-	var map = new LTmap();
-	
-	// Overlay stuff
-	$('#overlay .nojs').hide();
-	$('#overlay .search').show();
+	new LTmap();
 	
 	// GeoLocation
 	new GeoLocation();
