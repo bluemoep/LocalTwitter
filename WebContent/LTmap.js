@@ -5,6 +5,10 @@ function LTmap() {
 		return LTmap.instance;
 	}
 	LTmap.instance = this;
+	
+	google.maps.Circle.prototype.contains = function(latLng) {
+		return this.getBounds().contains(latLng) && google.maps.geometry.spherical.computeDistanceBetween(this.getCenter(), latLng) <= this.getRadius();
+	};
 
 	// Defaults
 	LTmap.elementId = 'map';
