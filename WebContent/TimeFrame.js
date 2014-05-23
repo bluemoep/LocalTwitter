@@ -42,13 +42,13 @@ function TimeFrame() {
 		time = value;
 		
 		if (onchange) {
-			new LTmap.update();
+			new LTmap().update();
 		}
-	}
+	};
 	
 	this.getTime = function() {
 		return time * 1000;
-	}
+	};
 	
 	var _this = this;
 	$("#slider").on("change", null, null, function() {
