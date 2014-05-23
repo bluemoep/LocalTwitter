@@ -17,11 +17,11 @@ function LTmap() {
 	LTmap.lat = '53.147086';
 	LTmap.lng = '8.180434';
 	LTmap.zoom = 4;
-	LTmap.markerUnread = function() {
-		return new google.maps.MarkerImage('http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|FE7569');
-	};
-	LTmap.markerRead = function() {
-		return new google.maps.MarkerImage('http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|E0E0E0');
+	LTmap.markerUnread = 'TwitterBlue.png';
+	LTmap.markerRead = 'TwitterWhite.png';
+	LTmap.markerShape = {
+		coords : [0,33,7,36,22,36,31,31,38,22,39,19,39,12,43,8,43,0,24,0,22,1,19,5,18,8,17,9,15,7,13,7,5,1,3,1,1,4,1,17,4,21,4,24,7,26,5,28,1,28,0,29],
+		type : 'poly'
 	};
 
 	var firstSetLocation = true;
@@ -83,14 +83,15 @@ function LTmap() {
 		if (!checkAddMarker(tweet) || onMap.hasOwnProperty(tweet.id_str))
 			return;
 
-		var icon = new MessageReadStorage().messageRead(tweet.id_str) ? LTmap.markerRead() : LTmap.markerUnread();
+		var icon = new MessageReadStorage().messageRead(tweet.id_str) ? LTmap.markerRead : LTmap.markerUnread;
 		var marker = new google.maps.Marker({
 			position : new google.maps.LatLng(
 					tweet.coordinates.coordinates[1],
 					tweet.coordinates.coordinates[0]),
 			map : map,
 			title : 'Zum Öffnen klicken!',
-			icon : icon
+			icon : icon,
+			shape : LTmap.markerShape
 		});
 
 		marker.message = new google.maps.InfoWindow({
@@ -115,7 +116,7 @@ function LTmap() {
 			marker.isOpen = true;
 			openedMarker = marker;
 			marker.message.open(map, marker);
-			marker.setIcon(LTmap.markerRead());
+			marker.setIcon(LTmap.markerRead);
 			new MessageReadStorage().addMessage(tweet);
 		});
 		
