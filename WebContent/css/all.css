@@ -5,8 +5,25 @@ body {
 	overflow: hidden;
 }
 
-html {
-	cursor: url(../favicon.jpg);
+#toasts {
+	position: absolute;
+	top: 10px;
+	left: 50%;
+	z-index: 9999;
+	width: 600px;
+}
+
+#toasts .toast {
+	position: relative;
+	left: -50%;
+	margin: 2px;
+	background: #555;
+	color: #fff;
+	padding: 5px;
+	border-radius: 10px;
+	display: none;
+	text-align: center;
+	font-weight: bold;
 }
 
 #map {

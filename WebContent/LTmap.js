@@ -195,6 +195,10 @@ function LTmap() {
 			circle.dot.setCenter(center);
 		}
 	};
+	
+	this.update = function() {
+		
+	};
 
 	this.getGoogleMap = function() {
 		return map;

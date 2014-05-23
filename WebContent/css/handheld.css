@@ -1,5 +1,9 @@
 @charset "UTF-8";
 
+#toasts {
+	width: 80%;
+}
+
 #overlay {
 	font-size: 32pt;
 }
