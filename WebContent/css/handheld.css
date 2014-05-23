@@ -30,18 +30,32 @@
 	border-bottom: 4px outset #fff;
 	border-bottom-right-radius: 17px;
 	display: block;
+	cursor: pointer;
 }
 
 #back {
 	position: absolute;
 	bottom: 0px;
 	left: 0px;
-	width: 24px;
-	height: 24px;
-	padding: 3px;
+	width: 45px;
+	height: 60px;
+	padding: 18px 10px;
 	display: block;
+	border-right: 1px solid #000;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	cursor: pointer;
 }
 
-#lettersleftbox {
-	width: calc(100% - 135px);
+#messagebox input[type="range"] {
+	width: calc(100% - 145px);
+	position: absolute;
+	left: 45px;
+}
+
+#timezonebox {
+	width: calc(100% - 145px);
+	left: 45px;
+	bottom: 30px;
 }

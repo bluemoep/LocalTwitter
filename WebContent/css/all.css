@@ -5,6 +5,10 @@ body {
 	overflow: hidden;
 }
 
+html {
+	cursor: url(../favicon.jpg);
+}
+
 #map {
 	position: absolute;
 	top: 0px;
@@ -73,7 +77,7 @@ body {
 	position: absolute;
 	top: 0px;
 	left: 0px;
-	height: 110px;
+	height: 140px;
 	width: 300px;
 	background-color: #fff;
 	overflow: hidden;
@@ -109,7 +113,7 @@ body {
 
 #messagebox form {
 	width: 100%;
-	height: 100%;
+	height: calc(100% - 30px);
 }
 
 #messagebox textarea {
@@ -127,7 +131,7 @@ body {
 	border-bottom: 1px solid #000;
 }
 
-#messagebox input {
+#messagebox input[type="submit"] {
 	width: 100px;
 	height: 30px;
 	padding: 0px;
@@ -138,20 +142,50 @@ body {
 	bottom: 0px;
 	background-color: #fff;
 	border-radius: 0px;
-	border-bottom-right-radius: 12px;
 	border: none;
 	border-left: 1px solid #000;
+	border-top: 1px solid #000;
+}
+
+#messagebox input[type="range"] {
+	width: calc(100% - 100px);
+	height: 30px;
+	padding: 0px;
+	margin: 0px;
+	box-sizing: border-box;
+	position: absolute;
+	left: 0px;
+	bottom: 0px;
+	background-color: #fff;
+	border-radius: 0px;
+	border-bottom-right-radius: 12px;
+	border: none;
+	border-top: 1px solid #000;
 }
 
 #lettersleftbox {
-	text-align: right;
+	text-align: center;
 	height: 30px;
-	width: calc(100% - 105px);
+	width: 100px;
 	position: absolute;
 	box-sizing: border-box;
-	right: 105px;
-	bottom: 0px;
+	right: 0px;
+	bottom: 30px;
 	overflow: hidden;
 	color: #999;
-	padding-top: 4px;
+	padding: 4px;
+	border-left: 1px solid #000;
+}
+
+#timezonebox {
+	text-align: center;
+	height: 30px;
+	width: calc(100% - 100px);
+	position: absolute;
+	box-sizing: border-box;
+	left: 0px;
+	bottom: 30px;
+	overflow: hidden;
+	color: #999;
+	padding: 4px;
 }

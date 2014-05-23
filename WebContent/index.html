@@ -19,6 +19,7 @@
 <script src="MessageReadStorage.js"></script>
 <script src="Overlay.js"></script>
 <script src="TweetParser.js"></script>
+<script src="TimeFrame.js"></script>
 <script src="LTmap.js"></script>
 <script src="GeoLocation.js"></script>
 <script src="js.js"></script>
@@ -58,6 +59,10 @@
 			</div>
 			<input type="submit" name="submit" value="Senden" />
 		</form>
+		<input type="range" name="slider" min="0" max="100000" step="1" id="slider"/>
+		<div id="timezonebox">
+			<span id="timezone">1s</span>
+		</div>
 	</section>
 	<section id="map"></section>
 </body>
