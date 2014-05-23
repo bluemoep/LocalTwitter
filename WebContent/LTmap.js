@@ -27,6 +27,7 @@ function LTmap() {
 	var firstSetLocation = true;
 	var center = new google.maps.LatLng(LTmap.lat, LTmap.lng);
 	var circle = null;
+	var openedMarker = null;
 	var onMap = {};
 
 	// Initialize map with defaults
@@ -99,19 +100,26 @@ function LTmap() {
 		});
 		
 		marker.isOpen = false;
+		
+		marker.closeclick = function() {
+			openedMarker = null;
+			marker.isOpen = false;
+			// Remove from map when under certain conditions
+			removeMessage(tweet.id_str);
+			marker.message.close();
+		};
 
 		google.maps.event.addListener(marker, 'click', function() {
+			if(openedMarker != null)
+				openedMarker.closeclick();
 			marker.isOpen = true;
+			openedMarker = marker;
 			marker.message.open(map, marker);
 			marker.setIcon(LTmap.markerRead());
 			new MessageReadStorage().addMessage(tweet);
 		});
 		
-		google.maps.event.addListener(marker.message, 'closeclick', function() {
-			marker.isOpen = false;
-			// Remove from map when under certain conditions
-			removeMessage(tweet.id_str);
-		});
+		google.maps.event.addListener(marker.message, 'closeclick', marker.closeclick);
 		
 		onMap[tweet.id_str] = {
 			marker : marker,
@@ -133,7 +141,8 @@ function LTmap() {
 				fillOpacity : 0,
 				map : map,
 				center : center,
-				radius : 2000
+				radius : 2000,
+				clickable : false
 			});
 			circle.dot = new google.maps.Circle({
 				strokeColor : '#f00',
@@ -143,7 +152,8 @@ function LTmap() {
 				fillOpacity : 0,
 				map : map,
 				center : center,
-				radius : 1
+				radius : 1,
+				clickable : false
 			});
 			map.fitBounds(circle.getBounds());
 			map.setZoom(map.getZoom() + 1);
@@ -162,81 +172,16 @@ function LTmap() {
 	
 	this.update = function() {
 		this.cleanMarkers();
-		this.addMessage({
-			coordinates : {
-				type : 'Point',
-				coordinates : [LTmap.lng, LTmap.lat]
-			},
-			"id": 411031503817039874,
-		    "id_str": "411031503817039874",
-		    "text": "test $TWTR @twitterapi #hashtag http:\/\/t.co\/p5dOtmnZyu https:\/\/t.co\/ZSvIEMOPb8",
-		    "created_at": "Fri May 23 12:42:00 +0200 2014",
-		    "entities": {
-		        "hashtags": [{
-		            "text": "hashtag",
-		            "indices": [23, 31]
-		        }],
-		        "symbols": [{
-		            "text": "TWTR",
-		            "indices": [5, 10]
-		        }],
-		        "urls": [{
-		            "url": "http:\/\/t.co\/p5dOtmnZyu",
-		            "expanded_url": "http:\/\/dev.twitter.com",
-		            "display_url": "dev.twitter.com",
-		            "indices": [32, 54]
-		        }, {
-		            "url": "https:\/\/t.co\/ZSvIEMOPb8",
-		            "expanded_url": "https:\/\/ton.twitter.com\/1.1\/ton\/data\/dm\/411031503817039874\/411031503833792512\/cOkcq9FS.jpg",
-		            "display_url": "pic.twitter.com\/ZSvIEMOPb8",
-		            "indices": [55, 78]
-		        }],
-		        "user_mentions": [{
-		            "screen_name": "twitterapi",
-		            "name": "Twitter API",
-		            "id": 6253282,
-		            "id_str": "6253282",
-		            "indices": [11, 22]
-		        }],
-		        "media": [{
-		            "id": 411031503833792512,
-		            "id_str": "411031503833792512",
-		            "indices": [55, 78],
-		            "media_url": "https://pbs.twimg.com/media/BEyUdcwCMAIyfRY.jpg",
-		            "media_url_https": "https:\/\/ton.twitter.com\/1.1\/ton\/data\/dm\/411031503817039874\/411031503833792512\/cOkcq9FS.jpg",
-		            "url": "https:\/\/t.co\/ZSvIEMOPb8",
-		            "display_url": "pic.twitter.com\/ZSvIEMOPb8",
-		            "expanded_url": "https:\/\/ton.twitter.com\/1.1\/ton\/data\/dm\/411031503817039874\/411031503833792512\/cOkcq9FS.jpg",
-		            "type": "photo",
-		            "sizes": {
-		                "medium": {
-		                    "w": 600,
-		                    "h": 450,
-		                    "resize": "fit"
-		                },
-		                "large": {
-		                    "w": 1024,
-		                    "h": 768,
-		                    "resize": "fit"
-		                },
-		                "thumb": {
-		                    "w": 150,
-		                    "h": 150,
-		                    "resize": "crop"
-		                },
-		                "small": {
-		                    "w": 340,
-		                    "h": 255,
-		                    "resize": "fit"
-		                }
-		            }
-		        }]
-		    }
-		});
+		// TODO: Server communication
+		setTimeout(sampleMarkers, 100);
 	};
 
 	this.getGoogleMap = function() {
 		return map;
+	};
+	
+	this.getGoogleCircle = function() {
+		return circle;
 	};
 	
 	setInterval(this.cleanMarkers, 1000);
