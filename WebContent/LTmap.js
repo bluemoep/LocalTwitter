@@ -82,8 +82,9 @@ function LTmap() {
 		// Never add markers which should not be added or markers which already exist
 		if (!checkAddMarker(tweet) || onMap.hasOwnProperty(tweet.id_str))
 			return;
-
-		var icon = new MessageReadStorage().messageRead(tweet.id_str) ? LTmap.markerRead : LTmap.markerUnread;
+		
+		var isRead = new MessageReadStorage().messageRead(tweet.id_str);
+		var icon = isRead ? LTmap.markerRead : LTmap.markerUnread;
 		var marker = new google.maps.Marker({
 			position : new google.maps.LatLng(
 					tweet.coordinates.coordinates[1],
@@ -93,6 +94,7 @@ function LTmap() {
 			icon : icon,
 			shape : LTmap.markerShape
 		});
+		marker.isRead = isRead;
 
 		marker.message = new google.maps.InfoWindow({
 			content : $('<div />').addClass('tweet').html(
@@ -109,8 +111,8 @@ function LTmap() {
 			removeMessage(tweet.id_str);
 			marker.message.close();
 		};
-
-		google.maps.event.addListener(marker, 'click', function() {
+		
+		marker.openclick = function() {
 			if(openedMarker != null)
 				openedMarker.closeclick();
 			marker.isOpen = true;
@@ -118,6 +120,10 @@ function LTmap() {
 			marker.message.open(map, marker);
 			marker.setIcon(LTmap.markerRead);
 			new MessageReadStorage().addMessage(tweet);
+		};
+
+		google.maps.event.addListener(marker, 'click', function() {
+			marker.openclick();
 		});
 		
 		google.maps.event.addListener(marker.message, 'closeclick', marker.closeclick);
@@ -126,6 +132,9 @@ function LTmap() {
 			marker : marker,
 			tweet : tweet
 		};
+		
+		if(!marker.isRead && openedMarker == null)
+			marker.openclick();
 	};
 
 	this.setLocation = function(lat, lng) {
