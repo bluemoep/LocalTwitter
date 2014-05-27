@@ -17,8 +17,18 @@ function LTmap() {
 	LTmap.lat = '53.147086';
 	LTmap.lng = '8.180434';
 	LTmap.zoom = 4;
-	LTmap.markerUnread = 'TwitterBlue.png';
-	LTmap.markerRead = 'TwitterDark.png';
+	LTmap.markerUnread = {
+			url : 'TwitterBlue.png',
+			size : new google.maps.Size(43, 36),
+			origin : new google.maps.Point(0, 0),
+			anchor : new google.maps.Point(21, 18)
+	};
+	LTmap.markerRead = {
+			url : 'TwitterDark.png',
+			size : new google.maps.Size(43, 36),
+			origin : new google.maps.Point(0, 0),
+			anchor : new google.maps.Point(21, 18)
+	};
 	LTmap.markerShape = {
 		coords : [0,33,7,36,22,36,31,31,38,22,39,19,39,12,43,8,43,0,24,0,22,1,19,5,18,8,17,9,15,7,13,7,5,1,3,1,1,4,1,17,4,21,4,24,7,26,5,28,1,28,0,29],
 		type : 'poly'
@@ -46,6 +56,16 @@ function LTmap() {
 		panControlOptions : {
 			position : google.maps.ControlPosition.RIGHT_TOP,
 		},
+	});
+	var oms = new OverlappingMarkerSpiderfier(map, {
+		nearbyDistance : 40,
+		circleFootSeparation : 40,
+		spiralFootSeparation : 35,
+		spiralLengthFactor : 7,
+		spiralLengthStart : 12
+	});
+	oms.addListener('click', function(marker, event) {
+		marker.openclick();
 	});
 	
 	var checkAddMarker = function(tweet) {
@@ -92,8 +112,10 @@ function LTmap() {
 			map : map,
 			title : 'Zum Öffnen klicken!',
 			icon : icon,
-			shape : LTmap.markerShape
+			shape : LTmap.markerShape,
+			zIndex : 1
 		});
+		oms.addMarker(marker);
 		marker.isRead = isRead;
 
 		marker.message = new google.maps.InfoWindow({
@@ -121,10 +143,6 @@ function LTmap() {
 			marker.setIcon(LTmap.markerRead);
 			new MessageReadStorage().addMessage(tweet);
 		};
-
-		google.maps.event.addListener(marker, 'click', function() {
-			marker.openclick();
-		});
 		
 		google.maps.event.addListener(marker.message, 'closeclick', marker.closeclick);
 		
