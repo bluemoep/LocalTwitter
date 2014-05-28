@@ -18,19 +18,33 @@ function LTmap() {
 	LTmap.lng = '8.180434';
 	LTmap.zoom = 4;
 	LTmap.markerUnread = {
-			url : 'TwitterBlue.png',
-			size : new google.maps.Size(43, 36),
-			origin : new google.maps.Point(0, 0),
-			anchor : new google.maps.Point(21, 18)
+		url : 'TwitterBlue.png',
+		size : new google.maps.Size(43, 36),
+		origin : new google.maps.Point(0, 0),
+		anchor : new google.maps.Point(21, 18)
 	};
 	LTmap.markerRead = {
-			url : 'TwitterDark.png',
-			size : new google.maps.Size(43, 36),
-			origin : new google.maps.Point(0, 0),
-			anchor : new google.maps.Point(21, 18)
+		url : 'TwitterDark.png',
+		size : new google.maps.Size(43, 36),
+		origin : new google.maps.Point(0, 0),
+		anchor : new google.maps.Point(21, 18)
+	};
+	LTmap.markerSpiderfiedUnread = {
+		url : 'TwitterRedBlue.png',
+		size : new google.maps.Size(43, 36),
+		origin : new google.maps.Point(0, 0),
+		anchor : new google.maps.Point(21, 18)
+	};
+	LTmap.markerSpiderfiedRead = {
+		url : 'TwitterRedDark.png',
+		size : new google.maps.Size(43, 36),
+		origin : new google.maps.Point(0, 0),
+		anchor : new google.maps.Point(21, 18)
 	};
 	LTmap.markerShape = {
-		coords : [0,33,7,36,22,36,31,31,38,22,39,19,39,12,43,8,43,0,24,0,22,1,19,5,18,8,17,9,15,7,13,7,5,1,3,1,1,4,1,17,4,21,4,24,7,26,5,28,1,28,0,29],
+		coords : [ 0, 33, 7, 36, 22, 36, 31, 31, 38, 22, 39, 19, 39, 12, 43, 8,
+				43, 0, 24, 0, 22, 1, 19, 5, 18, 8, 17, 9, 15, 7, 13, 7, 5, 1,
+				3, 1, 1, 4, 1, 17, 4, 21, 4, 24, 7, 26, 5, 28, 1, 28, 0, 29 ],
 		type : 'poly'
 	};
 
@@ -67,47 +81,62 @@ function LTmap() {
 	oms.addListener('click', function(marker, event) {
 		marker.openclick();
 	});
-	
+	oms.addListener('spiderfy', function(markers) {
+		for(var key in markers)
+			if(markers[key].isRead)
+				markers[key].setIcon(LTmap.markerSpiderfiedRead);
+			else
+				markers[key].setIcon(LTmap.markerSpiderfiedUnread);
+	});
+	oms.addListener('unspiderfy', function(markers) {
+		for(var key in markers)
+			if(markers[key].isRead)
+				markers[key].setIcon(LTmap.markerRead);
+			else
+				markers[key].setIcon(LTmap.markerUnread);
+	});
+
 	var checkAddMarker = function(tweet) {
 		if (tweet.coordinates && tweet.coordinates.type
 				&& tweet.coordinates.type == 'Point'
 				&& tweet.coordinates.coordinates
 				&& tweet.coordinates.coordinates[1]
 				&& tweet.coordinates.coordinates[0]) {
-			if(circle.contains(new google.maps.LatLng(
-						tweet.coordinates.coordinates[1],
-						tweet.coordinates.coordinates[0]))
-				&& new Date(tweet.created_at) > new Date(new Date() - new TimeFrame().getTime())) {
+			if (circle.contains(new google.maps.LatLng(
+					tweet.coordinates.coordinates[1],
+					tweet.coordinates.coordinates[0]))
+					&& new Date(tweet.created_at) > new Date(new Date()
+							- new TimeFrame().getTime())) {
 				return true;
 			} else
 				return false;
 		} else
 			return false;
 	};
-	
+
 	var removeMessage = function(id_str) {
 		// Never remove open markers or markers which should not be removed
-		if(onMap[id_str].marker.isOpen || checkAddMarker(onMap[id_str].tweet))
+		if (onMap[id_str].marker.isOpen || checkAddMarker(onMap[id_str].tweet))
 			return;
 		onMap[id_str].marker.setMap(null);
 		delete onMap[id_str];
 	};
-	
+
 	this.cleanMarkers = function() {
-		for(var id_str in onMap)
+		for ( var id_str in onMap)
 			removeMessage(id_str);
 	};
 
 	this.addMessage = function(tweet) {
-		// Never add markers which should not be added or markers which already exist
+		// Never add markers which should not be added or markers which already
+		// exist
 		if (!checkAddMarker(tweet) || onMap.hasOwnProperty(tweet.id_str))
 			return;
-		
+
 		var isRead = new MessageReadStorage().messageRead(tweet.id_str);
 		var icon = isRead ? LTmap.markerRead : LTmap.markerUnread;
 		var marker = new google.maps.Marker({
-			position : new google.maps.LatLng(
-					tweet.coordinates.coordinates[1],
+			position : new google.maps.LatLng(tweet.coordinates.coordinates[1],
 					tweet.coordinates.coordinates[0]),
 			map : map,
 			title : 'Zum Öffnen klicken!',
@@ -123,9 +152,9 @@ function LTmap() {
 					new TweetParser(tweet).parse()).get(0),
 			maxWidth : 150
 		});
-		
+
 		marker.isOpen = false;
-		
+
 		marker.closeclick = function() {
 			openedMarker = null;
 			marker.isOpen = false;
@@ -133,25 +162,27 @@ function LTmap() {
 			removeMessage(tweet.id_str);
 			marker.message.close();
 		};
-		
+
 		marker.openclick = function() {
-			if(openedMarker != null)
+			if (openedMarker != null)
 				openedMarker.closeclick();
 			marker.isOpen = true;
 			openedMarker = marker;
 			marker.message.open(map, marker);
 			marker.setIcon(LTmap.markerRead);
 			new MessageReadStorage().addMessage(tweet);
+			marker.isRead = true;
 		};
-		
-		google.maps.event.addListener(marker.message, 'closeclick', marker.closeclick);
-		
+
+		google.maps.event.addListener(marker.message, 'closeclick',
+				marker.closeclick);
+
 		onMap[tweet.id_str] = {
 			marker : marker,
 			tweet : tweet
 		};
-		
-		if(!marker.isRead && openedMarker == null)
+
+		if (!marker.isRead && openedMarker == null)
 			marker.openclick();
 	};
 
@@ -197,7 +228,7 @@ function LTmap() {
 		}
 		this.update();
 	};
-	
+
 	this.update = function() {
 		this.cleanMarkers();
 		// TODO: Server communication
@@ -207,11 +238,11 @@ function LTmap() {
 	this.getGoogleMap = function() {
 		return map;
 	};
-	
+
 	this.getGoogleCircle = function() {
 		return circle;
 	};
-	
+
 	setInterval(this.cleanMarkers, 1000);
 
 }
