@@ -28,6 +28,7 @@ $(document).ready(function() {
 	});
 	
 	new TimeFrame();
+	new Websocket().connect();
 });
 
 function sampleMarkers() {
