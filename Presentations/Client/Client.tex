@@ -1,0 +1,125 @@
+\documentclass[aspectratio=43]{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usetheme{default}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage{ulem}
+\usepackage{pgf}
+\usepackage{tikz}
+\usetikzlibrary{arrows,automata}
+\usepackage{listings}
+\lstset{frame=single,basicstyle=\scriptsize}
+\usepackage{latexsym,amssymb,eurosym,amsmath,amstext}
+\usepackage{multirow}
+\usepackage{longtable}
+\usepackage{fancyvrb}
+\usepackage{pgfpages}
+\usepackage{hyperref}
+\setlength{\fboxsep}{0pt}
+\setlength{\fboxrule}{.5pt}
+
+\makeatletter
+\renewcommand{\insertslideintonotes}[1]{{%
+  \begin{pgfpicture}{0cm}{0cm}{#1\paperwidth}{#1\paperheight}
+    \begin{pgflowlevelscope}{\pgftransformscale{#1}}%
+      {\pgftransformshift{\pgfpointorigin}\pgftext[left,bottom]{}}
+      \color{normal text.fg}
+      {\pgftransformshift{\pgfpoint{\beamer@origlmargin}{\footheight}}\pgftext[left,bottom]{\copy\beamer@frameboxcopy}}
+    \end{pgflowlevelscope}
+  \end{pgfpicture}%
+  }}
+\makeatother
+
+\AtBeginSection[]{
+	\frame{\frametitle{Gliederung}\tableofcontents[currentsection,subsections]}
+}
+
+\setbeamertemplate{footline}[frame number]
+\setbeamertemplate{bibliography item}[text]
+%\setbeamertemplate{note page}[plain]
+\setbeamercovered{transparent}
+%\setbeameroption{show notes on second screen=right}
+
+\title{LocalTwitter\\(Client)}
+\author{Gruppe bluemoep\\Internet-Technologien SS2014}
+\date{03. Juni 2014}
+ 
+\begin{document}
+\frame{\maketitle}
+%\frame{\tableofcontents[subsections,hideothersubsections]}
+ 
+\section{Desktop}
+\subsection{MockUp}
+\begin{frame}
+	\frametitle{Desktop (MockUp)}
+	\includegraphics[width=\textwidth]{ITDesktopMockUp.pdf}
+\end{frame}
+
+\subsection{Umsetzung}
+\begin{frame}
+	\frametitle{Desktop (Umsetzung)}
+	\fbox{\includegraphics[width=\textwidth]{Desktop.png}}
+\end{frame}
+
+\section{Mobile}
+\subsection{MockUp}
+\begin{frame}
+	\frametitle{Mobile (MockUp)}
+	\includegraphics[width=\textwidth]{ITMobileMockUp.pdf}
+\end{frame}
+
+\subsection{Umsetzung}
+\begin{frame}
+	\frametitle{Mobile (Umsetzung)}
+	\begin{columns}
+		\column[t]{.5\textwidth}
+			\fbox{\includegraphics[width=\textwidth]{Mobile.png}}
+		\column[t]{.5\textwidth}
+			\fbox{\includegraphics[width=\textwidth]{MobileInput.png}}
+	\end{columns} 
+\end{frame}
+
+\section{Features}
+\begin{frame}
+	\frametitle{Features}
+	\begin{columns}
+		\column[t]{.5\textwidth}
+			\begin{itemize}
+			\item Overlays
+			\item GeoLocation
+			\item Zeit-Filter (logarithmisch)
+			\item Zeichenlimit
+			\item MessageReadStorage
+				\begin{itemize}
+				\item LocalStorage
+				\item Räumt sich auf
+				\end{itemize}
+			\item TweetParser
+			\item Eigene Icons
+			\item Overlapping-Markers-Spiderfier
+			\end{itemize}
+		\column[t]{.5\textwidth}
+			\begin{itemize}
+			\item Anzeige der eigenen Position inkl. 2km Radius
+				\begin{itemize}
+					\item Nachrichten nur innerhalb des Radius
+				\end{itemize}
+			\item Toasts
+			\end{itemize}
+			\rule{\textwidth}{\fboxrule}
+			\begin{itemize}
+			\item Objekt-Orientierter Ansatz in JavaScript
+			\item Viele Klassen als Singleton
+			\end{itemize}
+	\end{columns}
+\end{frame}
+
+%\begin{frame}[allowframebreaks]
+%	\frametitle{Literaturverzeichnis}
+%	\tiny
+%	\printbibliography
+%\end{frame}
+
+\end{document}
