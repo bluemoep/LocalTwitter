@@ -9,7 +9,11 @@ function TimeFrame() {
 	var time = 1;
 	
 	this.showVal = function(value, onchange) {
-		value = Math.round(Math.exp(value*0.000140058002844074));
+//		value = Math.round(Math.exp(value*0.000140058002844074));
+//		var z = value;
+//		value = Math.round(Math.exp(value*0.0001396356066709325330678666368668732889951811875578));//0.0001400577630925227900127158222498938463700531047550));
+//		value += 29 + Math.floor(z/2);
+		value = Math.round(value*value*value*0.00000000120957 + 30.0);
 		var sec = value % 60;
 		var day = Math.floor(value / 60);
 		var min = day % 60;
