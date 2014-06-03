@@ -12,7 +12,7 @@ public class WebsocketHandler extends Observable {
 		return instance;
 	}
 	
-	public void sendNewMessage(String message) {
+	public synchronized void sendNewMessage(String message) {
 		this.setChanged();
 		this.notifyObservers(message);
 	}
