@@ -41,9 +41,9 @@
 	position: absolute;
 	bottom: 0px;
 	left: 0px;
-	width: 45px;
-	height: 60px;
-	padding: 18px 10px;
+	width: 30px;
+	height: 30px;
+	padding: 3px;
 	display: block;
 	border-right: 1px solid #000;
 	-webkit-box-sizing: border-box;
@@ -52,14 +52,13 @@
 	cursor: pointer;
 }
 
-#messagebox input[type="range"] {
-	width: calc(100% - 145px);
-	position: absolute;
-	left: 45px;
+#lettersleftbox {
+	left: 30px;
+	width: calc(100% - 130px);
 }
 
-#timezonebox {
-	width: calc(100% - 145px);
-	left: 45px;
-	bottom: 30px;
+#DistanceSlider, #TimeSlider {
+	width: 66%;
+	right: 17%;
 }
+
