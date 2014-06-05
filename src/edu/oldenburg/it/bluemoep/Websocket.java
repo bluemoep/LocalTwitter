@@ -24,13 +24,14 @@ public class Websocket implements TweetReceiver {
 	}
 
 	@OnMessage
-	public void onMessage(String message) {
+	public synchronized void onMessage(String message) {
 		try {
 			Boundaries boundaries = BoundariesParser.parse(message);
 			north = boundaries.getNorth();
 			east = boundaries.getEast();
 			south = boundaries.getSouth();
 			west = boundaries.getWest();
+			TweetSource.getInstance().fullRequest(this);
 		} catch (JsonParseException e) {
 			e.printStackTrace();
 		}
