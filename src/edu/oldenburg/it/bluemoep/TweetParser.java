@@ -11,7 +11,7 @@ import javax.json.JsonString;
 
 public class TweetParser {
 
-	public static Message parse(String message) throws IrrelevantTweetException {
+	public static Message parse(String message) throws JsonParseException {
 		try {
 			// Parse JSON
 			JsonReader reader = Json.createReader(new StringReader(message));
@@ -19,7 +19,7 @@ public class TweetParser {
 			JsonObject coords = root.getJsonObject("coordinates");
 			JsonString type = coords.getJsonString("type");
 			if (!type.getString().equals("Point"))
-				throw new IrrelevantTweetException();
+				throw new JsonParseException();
 			JsonArray coordArr = coords.getJsonArray("coordinates");
 			JsonNumber jlng = coordArr.getJsonNumber(0);
 			JsonNumber jlat = coordArr.getJsonNumber(1);
@@ -31,7 +31,7 @@ public class TweetParser {
 			// Construct Message
 			return new Message(id, lat, lng, message);
 		} catch (NullPointerException | IndexOutOfBoundsException e) {
-			throw new IrrelevantTweetException();
+			throw new JsonParseException();
 		}
 	}
 	

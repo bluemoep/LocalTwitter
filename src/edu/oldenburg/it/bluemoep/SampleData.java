@@ -2,9 +2,9 @@ package edu.oldenburg.it.bluemoep;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.LinkedList;
+import java.util.List;
 
-public class SampleData implements TweetSource {
+public class SampleData {
 
 	public static String getTweet(double north, double east, double south,
 			double west) {
@@ -92,17 +92,15 @@ public class SampleData implements TweetSource {
 				+ "	    }\n" + "	}";
 		return s;
 	}
-	
+
 	private static SampleData instance = null;
+
 	public static void startGeneration() {
-		if(instance == null)
+		if (instance == null)
 			instance = new SampleData();
 	}
 
-	private LinkedList<TweetReceiver> receivers;
-
 	private SampleData() {
-		receivers = new LinkedList<TweetReceiver>();
 		Thread runner = new Thread(new Runnable() {
 
 			@Override
@@ -110,11 +108,13 @@ public class SampleData implements TweetSource {
 				try {
 					int receiversSize;
 					while (true) {
-						receiversSize = receivers.size();
+						receiversSize = TweetSource.getInstance().getReceiverCount();
 						if (receiversSize < 1)
 							Thread.sleep(10000);
-						else
+						else {
 							sendMessage();
+							Thread.sleep(10000);
+						}
 					}
 				} catch (InterruptedException e) {
 				}
@@ -124,25 +124,13 @@ public class SampleData implements TweetSource {
 		runner.start();
 	}
 
-	public void addTweetReceiver(TweetReceiver receiver) {
-		receivers.add(receiver);
-	}
-
-	private void notifyReceivers(Message message) {
-		// Notify Receivers in Range
-		double lat = message.getLatitude();
-		double lng = message.getLongitude();
-		for (TweetReceiver receiver : receivers) {
-			if (receiver.getSouth() < lat && lat < receiver.getNorth()
-					&& receiver.getWest() < lng && lng < receiver.getEast()) {
-				receiver.receive(message);
-			}
-		}
-	}
 
 	private void sendMessage() {
 		try {
 
+			// Get Receivers
+			List<TweetReceiver> receivers = TweetSource.getInstance().getReceivers();
+			
 			// Get Random Receiver, so a receiver in range exists
 			TweetReceiver receiver = receivers
 					.get((int) (receivers.size() * Math.random()));
@@ -153,14 +141,11 @@ public class SampleData implements TweetSource {
 
 			// Parse Message
 			Message message = TweetParser.parse(sMessage);
+			
+			// Send Message
+			TweetSource.getInstance().sendMessage(message);
 
-			// Add Message to MessageStorage
-			MessageStorage.getInstance().addMessage(message);
-
-			// Notify Receivers about message
-			notifyReceivers(message);
-
-		} catch (IndexOutOfBoundsException | IrrelevantTweetException e) {
+		} catch (IndexOutOfBoundsException | JsonParseException e) {
 		}
 	}
 

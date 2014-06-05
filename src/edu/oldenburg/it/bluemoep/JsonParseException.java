@@ -1,6 +1,6 @@
 package edu.oldenburg.it.bluemoep;
 
-public class IrrelevantTweetException extends Exception {
+public class JsonParseException extends Exception {
 
 	/**
 	 * 
