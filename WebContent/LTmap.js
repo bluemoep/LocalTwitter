@@ -231,8 +231,16 @@ function LTmap() {
 
 	this.update = function() {
 		this.cleanMarkers();
-		// TODO: Server communication
-		setTimeout(sampleMarkers, 100);
+		var bounds = circle.getBounds();
+		var northEast = bounds.getNorthEast();
+		var southWest = bounds.getSouthWest();
+		var boundaries = {
+			north : northEast.lat(),
+			east : northEast.lng(),
+			south : southWest.lat(),
+			west : southWest.lng()
+		};
+		new Websocket().send(boundaries);
 	};
 
 	this.getGoogleMap = function() {

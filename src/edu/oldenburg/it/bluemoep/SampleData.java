@@ -2,6 +2,7 @@ package edu.oldenburg.it.bluemoep;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.List;
 
 public class SampleData {
 
@@ -90,6 +91,62 @@ public class SampleData {
 				+ "	        }]\n"
 				+ "	    }\n" + "	}";
 		return s;
+	}
+
+	private static SampleData instance = null;
+
+	public static void startGeneration() {
+		if (instance == null)
+			instance = new SampleData();
+	}
+
+	private SampleData() {
+		Thread runner = new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				try {
+					int receiversSize;
+					while (true) {
+						receiversSize = TweetSource.getInstance().getReceiverCount();
+						if (receiversSize < 1)
+							Thread.sleep(10000);
+						else {
+							sendMessage();
+							Thread.sleep(10000);
+						}
+					}
+				} catch (InterruptedException e) {
+				}
+			}
+
+		});
+		runner.start();
+	}
+
+
+	private void sendMessage() {
+		try {
+
+			// Get Receivers
+			List<TweetReceiver> receivers = TweetSource.getInstance().getReceivers();
+			
+			// Get Random Receiver, so a receiver in range exists
+			TweetReceiver receiver = receivers
+					.get((int) (receivers.size() * Math.random()));
+
+			// Get Sample Message
+			String sMessage = getTweet(receiver.getNorth(), receiver.getEast(),
+					receiver.getSouth(), receiver.getWest());
+
+			// Parse Message
+			Message message = TweetParser.parse(sMessage);
+			
+			// Send Message
+			TweetSource.getInstance().sendMessage(message);
+
+		} catch (IndexOutOfBoundsException | JsonParseException e) {
+		}
 	}
 
 }
