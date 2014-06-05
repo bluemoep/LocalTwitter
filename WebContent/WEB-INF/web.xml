@@ -4,4 +4,14 @@
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
   </welcome-file-list>
-</web-app>
+
+ <servlet>
+        <servlet-name>MessageReceiver</servlet-name>
+        <servlet-class>edu.oldenburg.it.bluemoep.MessageReceiver</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>MessageReceiver</servlet-name>
+        <url-pattern>/MessageReceiver</url-pattern>
+    </servlet-mapping>
+    </web-app>
