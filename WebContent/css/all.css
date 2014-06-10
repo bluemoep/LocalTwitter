@@ -94,7 +94,7 @@ body {
 	position: absolute;
 	top: 0px;
 	left: 0px;
-	height: 140px;
+	height: 110px;
 	width: 300px;
 	background-color: #fff;
 	overflow: hidden;
@@ -130,7 +130,7 @@ body {
 
 #messagebox form {
 	width: 100%;
-	height: calc(100% - 30px);
+	height: 100%;
 }
 
 #messagebox textarea {
@@ -161,48 +161,34 @@ body {
 	border-radius: 0px;
 	border: none;
 	border-left: 1px solid #000;
-	border-top: 1px solid #000;
-}
-
-#messagebox input[type="range"] {
-	width: calc(100% - 100px);
-	height: 30px;
-	padding: 0px;
-	margin: 0px;
-	box-sizing: border-box;
-	position: absolute;
-	left: 0px;
-	bottom: 0px;
-	background-color: #fff;
-	border-radius: 0px;
-	border-bottom-right-radius: 12px;
-	border: none;
-	border-top: 1px solid #000;
 }
 
 #lettersleftbox {
 	text-align: center;
 	height: 30px;
-	width: 100px;
-	position: absolute;
-	box-sizing: border-box;
-	right: 0px;
-	bottom: 30px;
-	overflow: hidden;
-	color: #999;
-	padding: 4px;
-	border-left: 1px solid #000;
-}
-
-#timezonebox {
-	text-align: center;
-	height: 30px;
 	width: calc(100% - 100px);
 	position: absolute;
 	box-sizing: border-box;
 	left: 0px;
-	bottom: 30px;
+	bottom: 0px;
 	overflow: hidden;
 	color: #999;
 	padding: 4px;
 }
+
+#DistanceSlider, #TimeSlider {
+	width: 200px;
+	height: 20px;
+	padding: 5px;
+	margin: 0px;
+	box-sizing: border-box;
+	position: absolute;
+	right: 100px;
+	top: 30px;
+	border: none;
+	background-color: rgba(255, 255, 255, 0.80);
+	border-radius: 10px;
+	box-shadow: 0px 0px 5px rgba(255, 255, 255, 0.80);
+	display: none;
+}
+

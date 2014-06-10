@@ -27,6 +27,7 @@ $(document).ready(function() {
 		win.focus();
 	});
 	
+	new DistanceFrame();
 	new TimeFrame();
 	new Websocket().connect();
 });
