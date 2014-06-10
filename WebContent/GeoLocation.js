@@ -5,6 +5,9 @@ function GeoLocation() {
 		return GeoLocation.instance;
 	}
 	GeoLocation.instance = this;
+	
+	var lat = 0;
+	var lng = 0;
 
 	var success = function(geo) {
 		$('#overlay .search').hide();
@@ -13,7 +16,9 @@ function GeoLocation() {
 		else {
 			new Overlay().hide();
 			var map = new LTmap();
-			map.setLocation(geo.coords.latitude, geo.coords.longitude);
+			lat = geo.coords.latitude;
+			lng = geo.coords.longitude;
+			map.setLocation(lat, lng);
 		}
 	};
 
@@ -34,5 +39,12 @@ function GeoLocation() {
 		failure();
 	else
 		geolocate();
-
+	
+	this.getLat = function() {
+		return lat;
+	};
+	
+	this.getLng = function() {
+		return lng;
+	};
 }

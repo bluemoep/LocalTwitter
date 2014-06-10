@@ -27,9 +27,31 @@ $(document).ready(function() {
 		win.focus();
 	});
 	
+	$("#form").on('submit', null, null,function(){
+		var textarea = $("textarea", this);
+		var text = $.trim(textarea.val());
+		if (text.length == 0) {
+			new Toast("Bitte geben sie erst eine Nachricht ein.");
+			textarea.focus();
+		} else {
+			$.ajax({
+				type: 'POST',
+				url: '/LocalTwitter/MessageReceiver',
+				data: 'message='+text+'&lat='+new GeoLocation().getLat()+'&lng='+new GeoLocation().getLng(),
+				success: function(html) {
+					new Toast("Nachricht wurde getwittert.");
+					textarea.val("");
+					$('#lettersleft').html(textarea.attr('maxlength'));
+					textarea.focus();
+				}
+			});
+		}
+		return false;
+	});	
+	
 	new DistanceFrame();
 	new TimeFrame();
-	new Websocket().connect();
+	new Websocket();
 });
 
 function sampleMarkers() {
