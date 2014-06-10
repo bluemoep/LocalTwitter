@@ -7,30 +7,41 @@ function Websocket() {
 	Websocket.instance = this;
 
 	var getOrigin = function() {
-		// TODO: Find current host + root
-		return "localhost:8080/LocalTwitter";
+		return window.location.host + window.location.pathname;
 	};
 
 	// Defaults
-	Websocket.host = "ws://" + getOrigin() + "/ws";
+	Websocket.host = 'ws://' + getOrigin() + 'ws';
 	
 	var socket = new WebSocket(Websocket.host);
+	var open = false;
 	
-	socket.onopen = function() {
-		// TODO: Send Boundaries
+	var onopen = function() {
+		open = true;
+		new LTmap().update();
 	};
 
-	socket.onmessage = function(message) {
-		// TODO: Notify LTmap
+	var onmessage = function(message) {
+		new LTmap().addMessage(JSON.parse(message));
 	};
 
-	socket.onclose = function() {
-		// TODO: Reconnect!
-		// TODO: Do not reconnect if window is closing and onclose is fired.
+	var onclose = function() {
+		open = false;
+		// Reconnect after 1 second
+		setTimeout(connect, 1000);
 	};
+	
+	var connect = function() {
+		socket = new WebSocket(Websocket.host);
+		socket.onopen = onopen;
+		socket.onmessage = onmessage;
+		socket.onclose = onclose;
+	};
+	
+	connect();
 
 	this.send = function(message) {
-		// TODO: Maybe JSON.stringify necessary, MAYBE!
-		socket.send(message);
+		if(open)
+			socket.send(JSON.stringify(message));
 	};
 }

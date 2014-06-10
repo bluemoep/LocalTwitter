@@ -200,7 +200,7 @@ function LTmap() {
 				fillOpacity : 0,
 				map : map,
 				center : center,
-				radius : 2000,
+				radius : new DistanceFrame().getDistance(),
 				clickable : false
 			});
 			circle.dot = new google.maps.Circle({
@@ -230,6 +230,8 @@ function LTmap() {
 	};
 
 	this.update = function() {
+		if(circle == null)
+			return;
 		this.cleanMarkers();
 		var bounds = circle.getBounds();
 		var northEast = bounds.getNorthEast();
@@ -240,7 +242,13 @@ function LTmap() {
 			south : southWest.lat(),
 			west : southWest.lng()
 		};
-		new Websocket().send(JSON.stringify(boundaries));
+		new Websocket().send(boundaries);
+	};
+	
+	this.setRadius = function(meter) {
+		if(circle == null)
+			return;
+		circle.setRadius(meter);
 	};
 
 	this.getGoogleMap = function() {
