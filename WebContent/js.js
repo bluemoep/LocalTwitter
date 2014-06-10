@@ -36,7 +36,7 @@ $(document).ready(function() {
 		} else {
 			$.ajax({
 				type: 'POST',
-				url: '/LocalTwitter/MessageReceiver',
+				url: window.location.pathname + 'MessageReceiver',
 				data: 'message='+text+'&lat='+new GeoLocation().getLat()+'&lng='+new GeoLocation().getLng(),
 				success: function(html) {
 					new Toast("Nachricht wurde getwittert.");
