@@ -16,6 +16,7 @@ public class MessageReceiver extends HttpServlet {
 	 */
 	private static final long serialVersionUID = 3383004164508555005L;
 
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		String message = request.getParameter("message");
@@ -24,7 +25,11 @@ public class MessageReceiver extends HttpServlet {
 		System.out.println("Message: " + message);
 		System.out.println("Lat: " + lat);
 		System.out.println("Lng: " + lng);	
-		
+	}
+	
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
 	}
 }
 
