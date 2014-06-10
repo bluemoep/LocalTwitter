@@ -240,7 +240,7 @@ function LTmap() {
 			south : southWest.lat(),
 			west : southWest.lng()
 		};
-		new Websocket().send(boundaries);
+		new Websocket().send(JSON.stringify(boundaries));
 	};
 
 	this.getGoogleMap = function() {
