@@ -8,7 +8,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
-import signpost-core-1.2.1.2;
+
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -25,6 +25,7 @@ public class MessageReceiver extends HttpServlet {
 	 */
 	private static final long serialVersionUID = 3383004164508555005L;
 
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		String message = request.getParameter("message");
@@ -33,6 +34,7 @@ public class MessageReceiver extends HttpServlet {
 		System.out.println("Message: " + message);
 		System.out.println("Lat: " + lat);
 		System.out.println("Lng: " + lng);	
+
 		String encoded;
 
 		encoded = "status=" + URLEncoder.encode(message, "UTF-8")+"&lat="+URLEncoder.encode(lat, "UTF-8")+"&long="+URLEncoder.encode(lng, "UTF-8");
@@ -109,6 +111,13 @@ public class MessageReceiver extends HttpServlet {
 			wr = null;
 			connection = null;
 		}
+
+	}
+	
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+
 	}
 }
 

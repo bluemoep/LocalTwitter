@@ -20,6 +20,7 @@ function DistanceFrame() {
 		value %= 10;
 		button.controlText.innerHTML = '<b>Radius: ' + z + ',' + value + 'km</b>';
 		
+		new LTmap().setRadius(distance);
 		if (onchange) {
 			new LTmap().update();
 		}
