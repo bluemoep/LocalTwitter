@@ -9,13 +9,18 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.ws.ProtocolException;
+
+import oauth.signpost.OAuthConsumer;
+import oauth.signpost.basic.DefaultOAuthConsumer;
+import oauth.signpost.exception.OAuthCommunicationException;
+import oauth.signpost.exception.OAuthExpectationFailedException;
+import oauth.signpost.exception.OAuthMessageSignerException;
 
 @WebServlet("/MessageReceiver")
 public class MessageReceiver extends HttpServlet {
@@ -40,27 +45,33 @@ public class MessageReceiver extends HttpServlet {
 		encoded = "status=" + URLEncoder.encode(message, "UTF-8")+"&lat="+URLEncoder.encode(lat, "UTF-8")+"&long="+URLEncoder.encode(lng, "UTF-8");
 		System.out.println(encoded);
 
-		HttpURLConnection connection = null;
+		//HttpURLConnection connection = null;
 		OutputStreamWriter wr = null;
 		BufferedReader rd = null;
 		StringBuilder sb = null;
 		String line = null;
-		URL serverAddress = null;
+		//URL serverAddress = null;
 
         // create a consumer object and configure it with the access
         // token and token secret obtained from the service provider
-        OAuthConsumer consumer = new DefaultOAuthConsumer(DHo3qG8QHm0kFqmLTu2p7sHiv,xSEzKKryxE3ENwEWlCMgkP5oTV73fPW90INS5TbaB833vUc713);
-        consumer.setTokenWithSecret(2558944136-b8AhCt9CLr2jWk6u6mZo19C3QRg7Ht64P2Fom0A,Ro9CHzMpywB8cmj0ZJTFukVypHRqanFBF4pZdhIAK58VT);
+        OAuthConsumer consumer = new DefaultOAuthConsumer("DHo3qG8QHm0kFqmLTu2p7sHiv", "xSEzKKryxE3ENwEWlCMgkP5oTV73fPW90INS5TbaB833vUc713");
+        consumer.setTokenWithSecret("2558944136-b8AhCt9CLr2jWk6u6mZo19C3QRg7Ht64P2Fom0A", "Ro9CHzMpywB8cmj0ZJTFukVypHRqanFBF4pZdhIAK58VT");
 
         // create an HTTP request to a protected resource
         URL url = new URL("https://api.twitter.com/1.1/statuses/update.json");
-        HttpURLConnection request = (HttpURLConnection) url.openConnection();
+        HttpURLConnection httpUrlConn = (HttpURLConnection) url.openConnection();
 
         // sign the request
-        consumer.sign(request);
+        try {
+			consumer.sign(httpUrlConn);
+		} catch (OAuthMessageSignerException | OAuthExpectationFailedException
+				| OAuthCommunicationException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 
         // send the request
-        request.connect();
+        httpUrlConn.connect();
 		
 		
 		
@@ -80,12 +91,12 @@ public class MessageReceiver extends HttpServlet {
 //			connection.connect();
 
 			//get the output stream writer and write the output to the server
-			wr = new OutputStreamWriter(connection.getOutputStream());
+			wr = new OutputStreamWriter(httpUrlConn.getOutputStream());
 			wr.write(encoded);
 			wr.flush();
 
 			//read the result from the server
-			rd = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+			rd = new BufferedReader(new InputStreamReader(httpUrlConn.getInputStream()));
 			sb = new StringBuilder();
 
 			while ((line = rd.readLine()) != null)
@@ -105,11 +116,11 @@ public class MessageReceiver extends HttpServlet {
 		finally
 		{
 			//close the connection, set all objects to null
-			connection.disconnect();
+			httpUrlConn.disconnect();
 			rd = null;
 			sb = null;
 			wr = null;
-			connection = null;
+			//connection = null;
 		}
 
 	}
