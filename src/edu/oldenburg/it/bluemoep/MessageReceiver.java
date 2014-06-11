@@ -39,10 +39,7 @@ public class MessageReceiver extends HttpServlet {
 		System.out.println("Message: " + message);
 		System.out.println("Lat: " + lat);
 		System.out.println("Lng: " + lng);	
-
-		String encoded;
-
-		encoded = "status=" + URLEncoder.encode(message, "UTF-8")+"&lat="+URLEncoder.encode(lat, "UTF-8")+"&long="+URLEncoder.encode(lng, "UTF-8");
+		String encoded = "status=" + URLEncoder.encode(message, "UTF-8")+"&lat="+URLEncoder.encode(lat, "UTF-8")+"&long="+URLEncoder.encode(lng, "UTF-8");
 		System.out.println(encoded);
 
 		//HttpURLConnection connection = null;
@@ -72,23 +69,10 @@ public class MessageReceiver extends HttpServlet {
 
         // send the request
         httpUrlConn.connect();
-		
-		
-		
+				
 		// ServerMessage sending
 		try {
-//			serverAddress = new URL("https://api.twitter.com/1.1/statuses/update.json");
-//			//set up out communications stuff
-//			connection = null;
-//
-//			//Set up the initial connection
-//			connection = (HttpURLConnection)serverAddress.openConnection();
-//			connection.setRequestMethod("POST");
-//			connection.setDoOutput(true);
-//			connection.setDoInput(true);
-//			connection.setReadTimeout(10000);
-//
-//			connection.connect();
+
 
 			//get the output stream writer and write the output to the server
 			wr = new OutputStreamWriter(httpUrlConn.getOutputStream());
