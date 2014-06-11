@@ -21,6 +21,7 @@ import oauth.signpost.basic.DefaultOAuthConsumer;
 import oauth.signpost.exception.OAuthCommunicationException;
 import oauth.signpost.exception.OAuthExpectationFailedException;
 import oauth.signpost.exception.OAuthMessageSignerException;
+import oauth.signpost.http.HttpRequest;
 
 @WebServlet("/MessageReceiver")
 public class MessageReceiver extends HttpServlet {
@@ -41,33 +42,48 @@ public class MessageReceiver extends HttpServlet {
 		System.out.println("Lng: " + lng);	
 		String encoded = "status=" + URLEncoder.encode(message, "UTF-8")+"&lat="+URLEncoder.encode(lat, "UTF-8")+"&long="+URLEncoder.encode(lng, "UTF-8");
 		System.out.println(encoded);
+		
+		// Authentication 
+		// Can be seen at: https://dev.twitter.com/apps
+		String ConsumerKey = "DHo3qG8QHm0kFqmLTu2p7sHiv" ;
+		String ConsumerSecret = "xSEzKKryxE3ENwEWlCMgkP5oTV73fPW90INS5TbaB833vUc713";
+		String AccessToken = "2558944136-b8AhCt9CLr2jWk6u6mZo19C3QRg7Ht64P2Fom0A";
+		String AccessTokenSecret = "Ro9CHzMpywB8cmj0ZJTFukVypHRqanFBF4pZdhIAK58VT";
 
 		//HttpURLConnection connection = null;
 		OutputStreamWriter wr = null;
 		BufferedReader rd = null;
 		StringBuilder sb = null;
 		String line = null;
-		//URL serverAddress = null;
 
         // create a consumer object and configure it with the access
         // token and token secret obtained from the service provider
-        OAuthConsumer consumer = new DefaultOAuthConsumer("DHo3qG8QHm0kFqmLTu2p7sHiv", "xSEzKKryxE3ENwEWlCMgkP5oTV73fPW90INS5TbaB833vUc713");
-        consumer.setTokenWithSecret("2558944136-b8AhCt9CLr2jWk6u6mZo19C3QRg7Ht64P2Fom0A", "Ro9CHzMpywB8cmj0ZJTFukVypHRqanFBF4pZdhIAK58VT");
+        OAuthConsumer consumer = new DefaultOAuthConsumer(ConsumerKey, ConsumerSecret);
+        consumer.setTokenWithSecret(AccessToken, AccessTokenSecret);
 
         // create an HTTP request to a protected resource
         URL url = new URL("https://api.twitter.com/1.1/statuses/update.json");
         HttpURLConnection httpUrlConn = (HttpURLConnection) url.openConnection();
-
-        // sign the request
+        
         try {
 			consumer.sign(httpUrlConn);
-		} catch (OAuthMessageSignerException | OAuthExpectationFailedException
-				| OAuthCommunicationException e1) {
+		} catch (OAuthMessageSignerException e1) {
 			// TODO Auto-generated catch block
+			System.out.println("MessageSignerException");
+			e1.printStackTrace();
+		} catch (OAuthExpectationFailedException e1) {
+			// TODO Auto-generated catch block
+			System.out.println("ExpectionFailedException");
+			e1.printStackTrace();
+		} catch (OAuthCommunicationException e1) {
+			// TODO Auto-generated catch block
+			System.out.println("CommunicationException");
 			e1.printStackTrace();
 		}
 
         // send the request
+        httpUrlConn.setDoOutput(true);
+       // httpUrlConn.setDoInput(true);
         httpUrlConn.connect();
 				
 		// ServerMessage sending
@@ -75,12 +91,12 @@ public class MessageReceiver extends HttpServlet {
 
 
 			//get the output stream writer and write the output to the server
-			wr = new OutputStreamWriter(httpUrlConn.getOutputStream());
+			wr = new OutputStreamWriter(httpUrlConn.getOutputStream(), "UTF-8");
 			wr.write(encoded);
 			wr.flush();
 
 			//read the result from the server
-			rd = new BufferedReader(new InputStreamReader(httpUrlConn.getInputStream()));
+			rd = new BufferedReader(new InputStreamReader(httpUrlConn.getInputStream(), "UTF-8"));
 			sb = new StringBuilder();
 
 			while ((line = rd.readLine()) != null)
