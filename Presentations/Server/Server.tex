@@ -1,0 +1,92 @@
+\documentclass[aspectratio=43]{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usetheme{default}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage{ulem}
+\usepackage{pgf}
+\usepackage{tikz}
+\usetikzlibrary{arrows,automata}
+\usepackage{listings}
+\lstset{frame=single,basicstyle=\scriptsize}
+\usepackage{latexsym,amssymb,eurosym,amsmath,amstext}
+\usepackage{multirow}
+\usepackage{longtable}
+\usepackage{fancyvrb}
+\usepackage{pgfpages}
+\usepackage{hyperref}
+\setlength{\fboxsep}{0pt}
+\setlength{\fboxrule}{.5pt}
+
+\makeatletter
+\renewcommand{\insertslideintonotes}[1]{{%
+  \begin{pgfpicture}{0cm}{0cm}{#1\paperwidth}{#1\paperheight}
+    \begin{pgflowlevelscope}{\pgftransformscale{#1}}%
+      {\pgftransformshift{\pgfpointorigin}\pgftext[left,bottom]{}}
+      \color{normal text.fg}
+      {\pgftransformshift{\pgfpoint{\beamer@origlmargin}{\footheight}}\pgftext[left,bottom]{\copy\beamer@frameboxcopy}}
+    \end{pgflowlevelscope}
+  \end{pgfpicture}%
+  }}
+\makeatother
+
+\AtBeginSection[]{
+	\frame{\frametitle{Gliederung}\tableofcontents[currentsection,subsections]}
+}
+
+\setbeamertemplate{footline}[frame number]
+\setbeamertemplate{bibliography item}[text]
+%\setbeamertemplate{note page}[plain]
+\setbeamercovered{transparent}
+%\setbeameroption{show notes on second screen=right}
+
+\title{LocalTwitter\\(Server)}
+\author{Gruppe bluemoep\\Internet-Technologien SS2014}
+\date{03. Juni 2014}
+ 
+\begin{document}
+\frame{\maketitle}
+%\frame{\tableofcontents[subsections,hideothersubsections]}
+ 
+\begin{frame}
+	\frametitle{Features (Client)}
+	\begin{columns}
+		\column[t]{\textwidth}
+			\begin{itemize}
+			\item Slider für Zeitfilter
+			\begin{itemize}
+				\item Umpositioniert
+				\item Bereiche verschoben
+			\end{itemize}
+			\item Slider für den Radius
+			\item Zurück-Icon ausgetauscht
+			\item Nachrichtenbox vereinfacht
+			\item Mobilversion Tastatur
+			\end{itemize}
+	\end{columns}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Features (Server)}
+	\begin{columns}
+		\column[t]{\textwidth}
+			\begin{itemize}
+			\item Websocket
+			\item Beispieldaten
+			\item Nachrichtenspeicher
+			\item Boundingbox
+			\item Observer-Pattern für Verbindungen
+			\item Nachrichten posten
+			\end{itemize}
+	\end{columns}
+\end{frame}
+
+%\begin{frame}[allowframebreaks]
+%	\frametitle{Literaturverzeichnis}
+%	\tiny
+%	\printbibliography
+%\end{frame}
+
+\end{document}
