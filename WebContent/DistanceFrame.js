@@ -30,6 +30,11 @@ function DistanceFrame() {
 		return distance;
 	};
 
+	var _this = this;
+	var hidden = true;
+	this.hide;
+	this.show;
+	
 	var DistanceControl = function(controlDiv, map) {
 
 		// Set CSS styles for the DIV containing the control
@@ -38,14 +43,14 @@ function DistanceFrame() {
 		controlDiv.style.padding = '5px';
 
 		// Set CSS for the control border
-		var controlUI = document.createElement('div');
-		controlUI.style.backgroundColor = 'white';
-		controlUI.style.borderStyle = 'solid';
-		controlUI.style.borderWidth = '2px';
-		controlUI.style.cursor = 'pointer';
-		controlUI.style.textAlign = 'center';
-		controlUI.title = 'Anzeigeradius einstellen';
-		controlDiv.appendChild(controlUI);
+		this.controlUI = document.createElement('div');
+		this.controlUI.style.backgroundColor = 'white';
+		this.controlUI.style.borderStyle = 'solid';
+		this.controlUI.style.borderWidth = '2px';
+		this.controlUI.style.cursor = 'pointer';
+		this.controlUI.style.textAlign = 'center';
+		this.controlUI.title = 'Anzeigeradius einstellen';
+		controlDiv.appendChild(this.controlUI);
 
 		// Set CSS for the control interior
 		this.controlText = document.createElement('div');
@@ -54,13 +59,17 @@ function DistanceFrame() {
 		this.controlText.style.paddingLeft = '4px';
 		this.controlText.style.paddingRight = '4px';
 		this.controlText.innerHTML = '<b>Radius: </b>';
-		controlUI.appendChild(this.controlText);
+		this.controlUI.appendChild(this.controlText);
 
 		// Setup the click event listeners: simply set the map to
 		// Chicago
-		google.maps.event.addDomListener(controlUI, 'click', function() {
-			$("#DistanceSlider").toggle();
-			new TimeFrame().getSlider().hide();
+		google.maps.event.addDomListener(this.controlUI, 'click', function() {
+			if (hidden) {
+				_this.show();
+			} else {
+				_this.hide();
+			}
+			new TimeFrame().hide();
 		});
 	};
 
@@ -71,7 +80,6 @@ function DistanceFrame() {
 	new LTmap().getGoogleMap().controls[google.maps.ControlPosition.TOP_RIGHT]
 			.push(distanceControlDiv);
 
-	var _this = this;
 	$("#DistanceSlider").on("change", null, null, function() {
 		_this.showVal($(this).val(), true);
 	});
@@ -82,7 +90,15 @@ function DistanceFrame() {
 	
 	this.showVal($("#DistanceSlider").val(), false);
 
-	this.getSlider = function() {
-		return $("#DistanceSlider");
+	this.hide = function() {
+		hidden = true;
+		$("#DistanceSlider").hide();
+		button.controlUI.style.backgroundColor = 'white';
 	};
-}
+	
+	this.show = function() {
+		hidden = false;
+		$("#DistanceSlider").show();
+		button.controlUI.style.backgroundColor = 'gray';
+	};
+};
