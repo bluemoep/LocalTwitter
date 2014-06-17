@@ -32,9 +32,13 @@ public class TweetSource {
 		double lat = message.getLatitude();
 		double lng = message.getLongitude();
 		for (TweetReceiver receiver : receivers) {
-			if (receiver.getNorth() > lat && lat > receiver.getSouth()
-					&& receiver.getEast() > lng && lng > receiver.getWest()) {
-				receiver.receive(message);
+			try {
+				if (receiver.getNorth() > lat && lat > receiver.getSouth()
+						&& receiver.getEast() > lng && lng > receiver.getWest()) {
+					receiver.receive(message);
+				}
+			} catch (NullPointerException e) {
+				receivers.remove(receiver);
 			}
 		}
 	}
