@@ -8,10 +8,13 @@ function GeoLocation() {
 	
 	var lat = 0;
 	var lng = 0;
+	var accuracy = 100;
+	var oldGeo = null;
 
 	var success = function(geo) {
+		oldGeo = geo;
 		$('#overlay .search').hide();
-		if(geo.coords.accuracy > 100)
+		if(geo.coords.accuracy > accuracy)
 			new Overlay().show('accuracyProblem');
 		else {
 			new Overlay().hide();
@@ -32,6 +35,11 @@ function GeoLocation() {
 			timeout : 60000,
 			maximumAge : 0
 		});
+	};
+	
+	this.setAccuracy = function(acc) {
+		accuracy = acc;
+		success(oldGeo);
 	};
 
 	new Overlay().show('search');
