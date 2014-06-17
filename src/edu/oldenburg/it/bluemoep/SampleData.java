@@ -95,7 +95,6 @@ public class SampleData {
 				+ "	            }\n"
 				+ "	        }]\n"
 				+ "	    }\n" + "	}";
-		System.out.println(s);
 		return s;
 	}
 
