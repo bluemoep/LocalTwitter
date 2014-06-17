@@ -14,6 +14,7 @@ public class TweetSource {
 	}
 
 	private TweetSource() {
+		SampleData.startGeneration();
 	}
 
 	private List<TweetReceiver> receivers = new LinkedList<TweetReceiver>();
