@@ -10,8 +10,12 @@ function DistanceFrame() {
 
 	var distance = 1;
 	var button = null;
+	var timeout = null;
+	var _this = this;
 
 	this.showVal = function(value, onchange) {
+		clearTimeout(timeout);
+
 		value = value / 100000 * (DistanceFrame.max - DistanceFrame.min)
 				+ DistanceFrame.min;
 		distance = value;
@@ -23,6 +27,9 @@ function DistanceFrame() {
 		new LTmap().setRadius(distance);
 		if (onchange) {
 			new LTmap().update();
+			timeout = setTimeout(function() {
+				_this.fadeout();
+			}, 3000);
 		}
 	};
 
@@ -30,7 +37,6 @@ function DistanceFrame() {
 		return distance;
 	};
 
-	var _this = this;
 	var hidden = true;
 	this.hide;
 	this.show;
@@ -96,9 +102,18 @@ function DistanceFrame() {
 		button.controlUI.style.backgroundColor = 'white';
 	};
 	
+	this.fadeout = function() {
+		hidden = true;
+		$("#DistanceSlider").fadeOut('slow');
+		button.controlUI.style.backgroundColor = 'white';
+	};
+
 	this.show = function() {
 		hidden = false;
 		$("#DistanceSlider").show();
 		button.controlUI.style.backgroundColor = 'gray';
+		timeout = setTimeout(function() {
+			_this.fadeout();
+		}, 3000);
 	};
 };

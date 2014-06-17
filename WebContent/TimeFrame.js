@@ -8,58 +8,71 @@ function TimeFrame() {
 
 	var time = 1;
 	var button = null;
-	
+	var timeout = null;
+	var _this = this;
+
 	this.showVal = function(value, onchange) {
-//		value = Math.round(Math.exp(value*0.000140058002844074));
-//		var z = value;
-//		value = Math.round(Math.exp(value*0.0001396356066709325330678666368668732889951811875578));//0.0001400577630925227900127158222498938463700531047550));
-//		value += 29 + Math.floor(z/2);
-		value = Math.round(value*value*value*0.00000000120957 + 30.0);
+		clearTimeout(timeout);
+		
+		// value = Math.round(Math.exp(value*0.000140058002844074));
+		// var z = value;
+		// value =
+		// Math.round(Math.exp(value*0.0001396356066709325330678666368668732889951811875578));//0.0001400577630925227900127158222498938463700531047550));
+		// value += 29 + Math.floor(z/2);
+		value = Math.round(value * value * value * 0.00000000120957 + 30.0);
 		var sec = value % 60;
 		var day = Math.floor(value / 60);
 		var min = day % 60;
 		day = Math.floor(day / 60);
 		var hour = day % 24;
 		day = Math.floor(day / 24);
-		
+
 		if (day > 0) {
 			if (hour > 0) {
-				button.controlText.innerHTML = "<b>Zeitfilter: " + day+"d "+hour+"h</b>";
+				button.controlText.innerHTML = "<b>Zeitfilter: " + day + "d "
+						+ hour + "h</b>";
 			} else {
-				button.controlText.innerHTML = "<b>Zeitfilter: " + day+"d</b>";
+				button.controlText.innerHTML = "<b>Zeitfilter: " + day
+						+ "d</b>";
 			}
 		} else if (hour > 0) {
 			if (min > 0) {
-				button.controlText.innerHTML = "<b>Zeitfilter: " + hour+"h "+min+"m</b>";
+				button.controlText.innerHTML = "<b>Zeitfilter: " + hour + "h "
+						+ min + "m</b>";
 			} else {
-				button.controlText.innerHTML = "<b>Zeitfilter: " + hour+"h</b>";
+				button.controlText.innerHTML = "<b>Zeitfilter: " + hour
+						+ "h</b>";
 			}
 		} else if (min > 0) {
 			if (sec > 0) {
-				button.controlText.innerHTML = "<b>Zeitfilter: " + min+"m "+sec+"s</b>";
+				button.controlText.innerHTML = "<b>Zeitfilter: " + min + "m "
+						+ sec + "s</b>";
 			} else {
-				button.controlText.innerHTML = "<b>Zeitfilter: " + min+"m</b>";
+				button.controlText.innerHTML = "<b>Zeitfilter: " + min
+						+ "m</b>";
 			}
 		} else {
-			button.controlText.innerHTML = "<b>Zeitfilter: " + sec+"s</b>";
+			button.controlText.innerHTML = "<b>Zeitfilter: " + sec + "s</b>";
 		}
-		
+
 		time = value;
-		
+
 		if (onchange) {
 			new LTmap().update();
+			timeout = setTimeout(function() {
+				_this.fadeout();
+			}, 3000);
 		}
 	};
-	
+
 	this.getTime = function() {
 		return time * 1000;
 	};
-	
-	var _this = this;
+
 	var hidden = true;
 	this.hide;
 	this.show;
-	
+
 	var TimeControl = function(controlDiv, map) {
 
 		// Set CSS styles for the DIV containing the control
@@ -97,7 +110,7 @@ function TimeFrame() {
 			new DistanceFrame().hide();
 		});
 	};
-	
+
 	var timeControlDiv = document.createElement('div');
 	button = new TimeControl(timeControlDiv, new LTmap().getGoogleMap());
 
@@ -108,11 +121,11 @@ function TimeFrame() {
 	$("#TimeSlider").on("change", null, null, function() {
 		_this.showVal($(this).val(), true);
 	});
-	
+
 	$("#TimeSlider").on("input", null, null, function() {
 		_this.showVal($(this).val(), false);
 	});
-	
+
 	this.showVal($("#TimeSlider").val(), false);
 
 	this.hide = function() {
@@ -120,10 +133,19 @@ function TimeFrame() {
 		$("#TimeSlider").hide();
 		button.controlUI.style.backgroundColor = 'white';
 	};
-	
+
+	this.fadeout = function() {
+		hidden = true;
+		$("#TimeSlider").fadeOut('slow');
+		button.controlUI.style.backgroundColor = 'white';
+	};
+
 	this.show = function() {
 		hidden = false;
 		$("#TimeSlider").show();
 		button.controlUI.style.backgroundColor = 'gray';
+		timeout = setTimeout(function() {
+			_this.fadeout();
+		}, 3000);
 	};
 };
