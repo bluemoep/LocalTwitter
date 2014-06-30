@@ -14,7 +14,7 @@ public class TweetSource {
 	}
 
 	private TweetSource() {
-		SampleData.startGeneration();
+		TwitterStreaming.startStreaming();
 	}
 
 	private List<TweetReceiver> receivers = new LinkedList<TweetReceiver>();
@@ -44,6 +44,9 @@ public class TweetSource {
 	}
 
 	public void sendMessage(Message message) {
+		if(message == null)
+			return;
+		
 		// Add Message to MessageStorage
 		MessageStorage.getInstance().addMessage(message);
 

@@ -4,6 +4,7 @@ import java.io.StringReader;
 
 import javax.json.Json;
 import javax.json.JsonArray;
+import javax.json.JsonException;
 import javax.json.JsonNumber;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
@@ -11,7 +12,7 @@ import javax.json.JsonString;
 
 public class TweetParser {
 
-	public static Message parse(String message) throws JsonParseException {
+	public static Message parse(String message) {
 		try {
 			// Parse JSON
 			JsonReader reader = Json.createReader(new StringReader(message));
@@ -27,12 +28,13 @@ public class TweetParser {
 			double lng = jlng.doubleValue();
 			JsonString jid = root.getJsonString("id_str");
 			String id = jid.getString();
-			
+
 			// Construct Message
 			return new Message(id, lat, lng, message);
-		} catch (NullPointerException | IndexOutOfBoundsException e) {
-			throw new JsonParseException();
+		} catch (NullPointerException | IndexOutOfBoundsException
+				| JsonParseException | ClassCastException | JsonException e) {
+			return null;
 		}
 	}
-	
+
 }

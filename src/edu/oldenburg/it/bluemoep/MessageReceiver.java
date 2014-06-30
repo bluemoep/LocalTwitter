@@ -75,7 +75,9 @@ public class MessageReceiver extends HttpServlet {
 		// getting response Messages
 		int statusCode = httpResponse.getStatusLine().getStatusCode();
 	    System.out.println(statusCode + ":" + httpResponse.getStatusLine().getReasonPhrase());
-	    System.out.println(IOUtils.toString(httpResponse.getEntity().getContent()));
+	    String str = IOUtils.toString(httpResponse.getEntity().getContent());
+	    System.out.println(str);
+	    TweetSource.getInstance().sendMessage(TweetParser.parse(str));
 	 
 	}
 

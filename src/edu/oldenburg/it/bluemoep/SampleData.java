@@ -151,7 +151,7 @@ public class SampleData {
 			// Send Message
 			TweetSource.getInstance().sendMessage(message);
 
-		} catch (IndexOutOfBoundsException | JsonParseException e) {
+		} catch (IndexOutOfBoundsException e) {
 		}
 	}
 
