@@ -22,7 +22,7 @@ function Websocket() {
 	};
 
 	var onmessage = function(message) {
-		new LTmap().addMessage(JSON.parse(message));
+		new LTmap().addMessage(JSON.parse(message.data));
 	};
 
 	var onclose = function() {

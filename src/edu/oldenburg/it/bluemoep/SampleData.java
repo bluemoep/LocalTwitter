@@ -15,20 +15,25 @@ public class SampleData {
 		SimpleDateFormat format = new SimpleDateFormat(
 				"EEE d MMM HH:mm:ss Z yyyy");
 		String date = format.format(cal.getTime());
+		long id = (long) (Math.random() * Long.MAX_VALUE);
 
-		String s = "{\n" + "		coordinates : {\n" + "			type : 'Point',\n"
-				+ "			coordinates : ["
+		String s = "{\n" + "		\"coordinates\" : {\n"
+				+ "			\"type\" : \"Point\",\n" + "			\"coordinates\" : ["
 				+ lng
 				+ ", "
 				+ lat
 				+ "]\n"
 				+ "		},\n"
-				+ "		\"id\": i,\n"
-				+ "	    \"id_str\": \"\"+i,\n"
-				+ "	    \"text\": \"test $TWTR @twitterapi #hashtag http:\\/\\/t.co\\/p5dOtmnZyu https:\\/\\/t.co\\/ZSvIEMOPb8\",\n"
-				+ "	    \"created_at\": "
-				+ date
+				+ "		\"id\": "
+				+ id
 				+ ",\n"
+				+ "	    \"id_str\": \""
+				+ id
+				+ "\",\n"
+				+ "	    \"text\": \"test $TWTR @twitterapi #hashtag http:\\/\\/t.co\\/p5dOtmnZyu https:\\/\\/t.co\\/ZSvIEMOPb8\",\n"
+				+ "	    \"created_at\": \""
+				+ date
+				+ "\",\n"
 				+ "	    \"entities\": {\n"
 				+ "	        \"hashtags\": [{\n"
 				+ "	            \"text\": \"hashtag\",\n"
@@ -108,12 +113,13 @@ public class SampleData {
 				try {
 					int receiversSize;
 					while (true) {
-						receiversSize = TweetSource.getInstance().getReceiverCount();
+						receiversSize = TweetSource.getInstance()
+								.getReceiverCount();
 						if (receiversSize < 1)
-							Thread.sleep(10000);
+							Thread.sleep(1000);
 						else {
 							sendMessage();
-							Thread.sleep(10000);
+							Thread.sleep(1000);
 						}
 					}
 				} catch (InterruptedException e) {
@@ -124,13 +130,13 @@ public class SampleData {
 		runner.start();
 	}
 
-
 	private void sendMessage() {
 		try {
 
 			// Get Receivers
-			List<TweetReceiver> receivers = TweetSource.getInstance().getReceivers();
-			
+			List<TweetReceiver> receivers = TweetSource.getInstance()
+					.getReceivers();
+
 			// Get Random Receiver, so a receiver in range exists
 			TweetReceiver receiver = receivers
 					.get((int) (receivers.size() * Math.random()));
@@ -141,7 +147,7 @@ public class SampleData {
 
 			// Parse Message
 			Message message = TweetParser.parse(sMessage);
-			
+
 			// Send Message
 			TweetSource.getInstance().sendMessage(message);
 
