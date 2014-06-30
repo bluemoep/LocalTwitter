@@ -34,6 +34,7 @@ $(document).ready(function() {
 			new Toast("Bitte geben sie erst eine Nachricht ein.");
 			textarea.focus();
 		} else {
+			textarea.prop('readonly', true);
 			$.ajax({
 				type: 'POST',
 				url: window.location.pathname + 'MessageReceiver',
@@ -41,8 +42,12 @@ $(document).ready(function() {
 				success: function(html) {
 					new Toast("Nachricht wurde getwittert.");
 					textarea.val("");
+					textarea.prop('readonly', false);
 					$('#lettersleft').html(textarea.attr('maxlength'));
 					textarea.focus();
+				},
+				error: function() {
+					textarea.prop('readonly', false);
 				}
 			});
 		}
