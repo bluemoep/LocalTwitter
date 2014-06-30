@@ -116,10 +116,10 @@ public class SampleData {
 						receiversSize = TweetSource.getInstance()
 								.getReceiverCount();
 						if (receiversSize < 1)
-							Thread.sleep(10000);
+							Thread.sleep(1000);
 						else {
 							sendMessage();
-							Thread.sleep(10000);
+							Thread.sleep(1000);
 						}
 					}
 				} catch (InterruptedException e) {
