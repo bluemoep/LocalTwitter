@@ -13,6 +13,9 @@ function TweetParser(tweet) {
 	};
 
 	var parseHashtags = function() {
+		if(typeof(tweet.entities.hashtags) == 'undefined')
+			return;
+		
 		textChanged = true;
 		var hashtag;
 		for (var i = 0; i < tweet.entities.hashtags.length; i++) {
@@ -27,6 +30,9 @@ function TweetParser(tweet) {
 	};
 
 	var parseSymbols = function() {
+		if(typeof(tweet.entities.symbols) == 'undefined')
+			return;
+		
 		textChanged = true;
 		var symbol;
 		for (var i = 0; i < tweet.entities.symbols.length; i++) {
@@ -41,6 +47,9 @@ function TweetParser(tweet) {
 	};
 
 	var parseUrls = function() {
+		if(typeof(tweet.entities.urls) == 'undefined')
+			return;
+		
 		textChanged = true;
 		var url;
 		for (var i = 0; i < tweet.entities.urls.length; i++) {
@@ -54,6 +63,9 @@ function TweetParser(tweet) {
 	};
 
 	var parseUserMentions = function() {
+		if(typeof(tweet.entities.user_mentions) == 'undefined')
+			return;
+		
 		textChanged = true;
 		var mention;
 		for (var i = 0; i < tweet.entities.user_mentions.length; i++) {
@@ -68,6 +80,9 @@ function TweetParser(tweet) {
 	};
 
 	var parseMedia = function() {
+		if(typeof(tweet.entities.media) == 'undefined')
+			return;
+		
 		textChanged = true;
 		var media;
 		for (var i = 0; i < tweet.entities.media.length; i++) {
