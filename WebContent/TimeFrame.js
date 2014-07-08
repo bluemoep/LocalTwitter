@@ -11,15 +11,8 @@ function TimeFrame() {
 	var timeout = null;
 	var _this = this;
 
-	this.showVal = function(value, onchange) {
-		clearTimeout(timeout);
-		
-		// value = Math.round(Math.exp(value*0.000140058002844074));
-		// var z = value;
-		// value =
-		// Math.round(Math.exp(value*0.0001396356066709325330678666368668732889951811875578));//0.0001400577630925227900127158222498938463700531047550));
-		// value += 29 + Math.floor(z/2);
-		value = Math.round(value * value * value * 0.00000000120957 + 30.0);
+	this.parse = function(value) {
+		value = Math.floor(value / 1000);
 		var sec = value % 60;
 		var day = Math.floor(value / 60);
 		var min = day % 60;
@@ -29,32 +22,37 @@ function TimeFrame() {
 
 		if (day > 0) {
 			if (hour > 0) {
-				button.controlText.innerHTML = "<b>Zeitfilter: " + day + "d "
-						+ hour + "h</b>";
+				return day + "d " + hour + "h";
 			} else {
-				button.controlText.innerHTML = "<b>Zeitfilter: " + day
-						+ "d</b>";
+				return day + "d";
 			}
 		} else if (hour > 0) {
 			if (min > 0) {
-				button.controlText.innerHTML = "<b>Zeitfilter: " + hour + "h "
-						+ min + "m</b>";
+				return hour + "h " + min + "m";
 			} else {
-				button.controlText.innerHTML = "<b>Zeitfilter: " + hour
-						+ "h</b>";
+				return hour + "h";
 			}
 		} else if (min > 0) {
 			if (sec > 0) {
-				button.controlText.innerHTML = "<b>Zeitfilter: " + min + "m "
-						+ sec + "s</b>";
+				return min + "m " + sec + "s";
 			} else {
-				button.controlText.innerHTML = "<b>Zeitfilter: " + min
-						+ "m</b>";
+				return min + "m";
 			}
 		} else {
-			button.controlText.innerHTML = "<b>Zeitfilter: " + sec + "s</b>";
+			return sec + "s";
 		}
+	};
 
+	this.showVal = function(value, onchange) {
+		clearTimeout(timeout);
+
+		// value = Math.round(Math.exp(value*0.000140058002844074));
+		// var z = value;
+		// value =
+		// Math.round(Math.exp(value*0.0001396356066709325330678666368668732889951811875578));//0.0001400577630925227900127158222498938463700531047550));
+		// value += 29 + Math.floor(z/2);
+		value = Math.round(value * value * value * 0.00000000120957 + 30.0);
+		button.controlText.innerHTML = "<b>Zeitfilter: " + this.parse(value*1000) + "</b>";
 		time = value;
 
 		if (onchange) {
