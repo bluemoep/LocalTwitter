@@ -20,7 +20,6 @@ public class Websocket implements TweetReceiver {
 	public void onOpen(Session session) {
 		// Handle new connection here
 		this.session = session;
-		TweetSource.getInstance().addTweetReceiver(this);
 	}
 
 	@OnMessage
@@ -31,7 +30,7 @@ public class Websocket implements TweetReceiver {
 			east = boundaries.getEast();
 			south = boundaries.getSouth();
 			west = boundaries.getWest();
-			TweetSource.getInstance().fullRequest(this);
+			// TODO: New TwitterStream
 		} catch (JsonParseException e) {
 			e.printStackTrace();
 		}
@@ -40,7 +39,7 @@ public class Websocket implements TweetReceiver {
 	@OnClose
 	public void onClose(Session session, CloseReason reason) {
 		// Handle closing connection here
-		TweetSource.getInstance().removeTweetReceiver(this);
+		//TweetSource.getInstance().removeTweetReceiver(this);
 		this.session = null;
 	}
 
