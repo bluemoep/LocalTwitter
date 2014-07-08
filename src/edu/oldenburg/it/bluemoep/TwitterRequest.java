@@ -71,8 +71,9 @@ public class TwitterRequest {
 		Entry<String, String> entry;
 		while (iterator.hasNext()) {
 			entry = iterator.next();
-			sb.append(entry.getKey()).append(encode(entry.getValue()));
+			sb.append(entry.getKey()).append("=").append(encode(entry.getValue()));
 		}
+		System.out.println(sb.toString());
 		return sb.toString();
 	}
 
