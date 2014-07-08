@@ -71,10 +71,10 @@ public class TwitterRequest {
 		Entry<String, String> entry;
 		while (iterator.hasNext()) {
 			entry = iterator.next();
-			sb.append(entry.getKey()).append("=").append(encode(entry.getValue()));
+			sb.append("&").append(entry.getKey()).append("=").append(encode(entry.getValue()));
 		}
-		System.out.println(sb.toString());
-		return sb.toString();
+		System.out.println(sb.substring(1));
+		return sb.substring(1);
 	}
 
 	// Methode zur encodierung von Strings gem. RFC3986
