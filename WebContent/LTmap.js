@@ -121,6 +121,13 @@ function LTmap() {
 		onMap[id_str].marker.setMap(null);
 		delete onMap[id_str];
 	};
+	
+	var updateTime = function() {
+		if(openedMarker == null)
+			return;
+		var content = openedMarker.message.content;
+		$('div.tweetDateTime', content).html('vor ' + TimeFrame.parse(new Date() - new Date(openedMarker.tweet.created_at)));
+	};
 
 	this.cleanMarkers = function() {
 		for ( var id_str in onMap)
@@ -147,6 +154,7 @@ function LTmap() {
 		oms.addMarker(marker);
 		marker.isRead = isRead;
 
+		marker.tweet = tweet;
 		marker.message = new google.maps.InfoWindow({
 			content : new TweetParser(tweet).parse(),
 			maxWidth : 150
@@ -167,6 +175,7 @@ function LTmap() {
 				openedMarker.closeclick();
 			marker.isOpen = true;
 			openedMarker = marker;
+			updateTime();
 			marker.message.open(map, marker);
 			marker.setIcon(LTmap.markerRead);
 			new MessageReadStorage().addMessage(tweet);
@@ -259,5 +268,6 @@ function LTmap() {
 	};
 
 	setInterval(this.cleanMarkers, 1000);
+	setInterval(updateTime, 1000);
 
 }
