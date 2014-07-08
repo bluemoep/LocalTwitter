@@ -136,12 +136,14 @@ function TweetParser(tweet) {
 			text = result;
 		}
 		var div = document.createElement('div');
-		var author = document.createElement('div');
+		var info = document.createElement('div');
+		var author = document.createElement('a');
 		var datetime = document.createElement('div');
 		var tweetText = document.createElement('div');
 		$(div).addClass('tweet');
-		$(author).html(tweet.user.name).addClass('tweetAuthor').appendTo(div);
-		$(datetime).html(new Date(tweet.created_at).toLocaleTimeString()).addClass('tweetDateTime').appendTo(div);
+		$(info).addClass('tweetInfo').appendTo(div);
+		$(author).attr('href', 'https://twitter.com/' + tweet.user.name).html(tweet.user.name).addClass('tweetAuthor').appendTo(info);
+		$(datetime).html(new Date(tweet.created_at).toLocaleTimeString()).addClass('tweetDateTime').appendTo(info);
 		$(tweetText).html(text).addClass('tweetText').appendTo(div);
 		return div;
 	};
