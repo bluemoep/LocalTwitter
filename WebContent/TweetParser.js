@@ -135,7 +135,15 @@ function TweetParser(tweet) {
 
 			text = result;
 		}
-		return text;
+		var div = document.createElement('div');
+		var author = document.createElement('div');
+		var datetime = document.createElement('div');
+		var tweetText = document.createElement('div');
+		$(div).addClass('tweet');
+		$(author).html(tweet.user.name).addClass('tweetAuthor').appendTo(div);
+		$(datetime).html(new Date(tweet.created_at).toLocaleTimeString()).addClass('tweetDateTime').appendTo(div);
+		$(tweetText).html(text).addClass('tweetText').appendTo(div);
+		return div;
 	};
 
 }

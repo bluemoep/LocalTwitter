@@ -148,8 +148,7 @@ function LTmap() {
 		marker.isRead = isRead;
 
 		marker.message = new google.maps.InfoWindow({
-			content : $('<div />').addClass('tweet').html(
-					new TweetParser(tweet).parse()).get(0),
+			content : new TweetParser(tweet).parse(),
 			maxWidth : 150
 		});
 
