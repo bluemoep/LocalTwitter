@@ -47,6 +47,9 @@ function LTmap() {
 				3, 1, 1, 4, 1, 17, 4, 21, 4, 24, 7, 26, 5, 28, 1, 28, 0, 29 ],
 		type : 'poly'
 	};
+	
+	LTmap.soundEnabled = true;
+	LTmap.audio = document.getElementById('audio');
 
 	var firstSetLocation = true;
 	var center = new google.maps.LatLng(LTmap.lat, LTmap.lng);
@@ -192,6 +195,9 @@ function LTmap() {
 
 		if (!marker.isRead && openedMarker == null)
 			marker.openclick();
+		
+		if(LTmap.soundEnabled)
+			LTmap.audio.play();
 	};
 
 	this.setLocation = function(lat, lng) {

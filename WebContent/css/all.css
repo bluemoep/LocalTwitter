@@ -210,3 +210,7 @@ body {
 	border-bottom: 1px #ccc solid;
 	padding-bottom: 2px;
 }
+
+#audio {
+	display: none;
+}
