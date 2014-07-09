@@ -54,6 +54,7 @@ $(document).ready(function() {
 		return false;
 	});	
 	
+	new Sound();
 	new DistanceFrame();
 	new TimeFrame();
 	new Websocket();
