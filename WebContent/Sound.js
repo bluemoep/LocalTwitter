@@ -29,8 +29,8 @@ function Sound() {
 		this.controlUI.style.borderStyle = 'solid';
 		this.controlUI.style.borderWidth = '2px';
 		this.controlUI.style.cursor = 'pointer';
-		this.controlUI.style.textAlign = 'center';
-		this.controlUI.style.width = '66px';
+		this.controlUI.style.textAlign = 'left';
+		this.controlUI.style.width = '68px';
 		this.controlUI.title = 'Sound einstellen';
 		controlDiv.appendChild(this.controlUI);
 
