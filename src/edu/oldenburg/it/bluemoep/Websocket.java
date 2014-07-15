@@ -42,13 +42,14 @@ public class Websocket implements TweetReceiver {
 	@OnClose
 	public void onClose(Session session, CloseReason reason) {
 		// Handle closing connection here
-		//TweetSource.getInstance().removeTweetReceiver(this);
+		stream.stop();
 		this.session = null;
 	}
 
 	@OnError
 	public void onError(Session session, Throwable throwable) {
 		// Handle error during transport here
+		stream.stop();
 		throwable.printStackTrace();
 	}
 
