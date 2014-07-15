@@ -236,11 +236,15 @@ function LTmap() {
 							new Overlay().hide();
 						});
 			});
+			this.update();
 		} else {
-			circle.setCenter(center);
-			circle.dot.setCenter(center);
+			if(google.maps.geometry.spherical.computeDistanceBetween(this
+						.getCenter(), center) > 50) {
+				circle.setCenter(center);
+				circle.dot.setCenter(center);
+				this.update();
+			}
 		}
-		this.update();
 	};
 
 	this.update = function() {
@@ -263,6 +267,7 @@ function LTmap() {
 		if(circle == null)
 			return;
 		circle.setRadius(meter);
+		this.update();
 	};
 
 	this.getGoogleMap = function() {
