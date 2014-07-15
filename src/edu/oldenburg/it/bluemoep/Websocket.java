@@ -28,6 +28,7 @@ public class Websocket implements TweetReceiver {
 		try {
 			WebsocketMessage msg = WebsocketMessage.parse(message);
 			if (msg.isBoundaries()) {
+				System.out.println("Location change in work.");
 				Boundaries boundaries = msg.getBoundaries();
 				north = boundaries.getNorth();
 				east = boundaries.getEast();
@@ -38,6 +39,7 @@ public class Websocket implements TweetReceiver {
 				stream = new TwitterStream(north, east, south, west, this);
 				FullRequest.doRequest(this);
 			} else if (msg.isFullRequest()) {
+				System.out.println("FullRequest in work.");
 				FullRequest.doRequest(this);
 			}
 		} catch (JsonParseException e) {

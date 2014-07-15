@@ -50,6 +50,7 @@ public class TwitterStream {
 						break;
 					}
 				}
+				System.out.println("Stream stopped");
 			}
 
 		});
