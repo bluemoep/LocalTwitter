@@ -56,7 +56,7 @@ function TimeFrame() {
 		time = value;
 
 		if (onchange) {
-			new LTmap().update();
+			new LTmap().fullRequest();
 			timeout = setTimeout(function() {
 				_this.fadeout();
 			}, 3000);
