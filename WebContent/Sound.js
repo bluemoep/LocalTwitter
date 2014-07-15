@@ -16,6 +16,8 @@ function Sound() {
 			button.controlText.innerHTML = '<b>Sound: off</b>';
 	};
 
+	// BEGINN: Vergleiche:
+	// https://developers.google.com/maps/documentation/javascript/examples/control-custom?hl=de
 	var TimeControl = function(controlDiv, map) {
 
 		// Set CSS styles for the DIV containing the control
@@ -50,6 +52,8 @@ function Sound() {
 			_this.setText(LTmap.soundEnabled);
 		});
 	};
+	// ENDE: Vergleiche:
+	// https://developers.google.com/maps/documentation/javascript/examples/control-custom?hl=de
 
 	var timeControlDiv = document.createElement('div');
 	button = new TimeControl(timeControlDiv, new LTmap().getGoogleMap());
