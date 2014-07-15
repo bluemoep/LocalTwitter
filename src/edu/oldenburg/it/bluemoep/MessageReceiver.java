@@ -13,7 +13,7 @@ import org.apache.http.HttpResponse;
 
 
 
-@WebServlet(urlPatterns={ "/MessageReceiver" })
+@WebServlet("/MessageReceiver")
 public class MessageReceiver extends HttpServlet {
 
 	/**
