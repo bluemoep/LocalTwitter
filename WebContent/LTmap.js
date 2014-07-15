@@ -238,7 +238,7 @@ function LTmap() {
 			});
 			this.update();
 		} else {
-			if(google.maps.geometry.spherical.computeDistanceBetween(this
+			if(google.maps.geometry.spherical.computeDistanceBetween(circle
 						.getCenter(), center) > 50) {
 				circle.setCenter(center);
 				circle.dot.setCenter(center);
