@@ -12,7 +12,7 @@ import javax.websocket.server.ServerEndpoint;
 
 @ServerEndpoint("/ws")
 public class Websocket implements TweetReceiver {
-	
+
 	private Session session;
 	private double north, east, south, west;
 	private TwitterStream stream = null;
@@ -26,14 +26,20 @@ public class Websocket implements TweetReceiver {
 	@OnMessage
 	public synchronized void onMessage(String message) {
 		try {
-			Boundaries boundaries = BoundariesParser.parse(message);
-			north = boundaries.getNorth();
-			east = boundaries.getEast();
-			south = boundaries.getSouth();
-			west = boundaries.getWest();
-			if(stream != null)
-				stream.stop();
-			stream = new TwitterStream(north, east, south, west, this);
+			WebsocketMessage msg = WebsocketMessage.parse(message);
+			if (msg.isBoundaries()) {
+				Boundaries boundaries = msg.getBoundaries();
+				north = boundaries.getNorth();
+				east = boundaries.getEast();
+				south = boundaries.getSouth();
+				west = boundaries.getWest();
+				if (stream != null)
+					stream.stop();
+				stream = new TwitterStream(north, east, south, west, this);
+				FullRequest.doRequest(this);
+			} else if (msg.isFullRequest()) {
+				FullRequest.doRequest(this);
+			}
 		} catch (JsonParseException e) {
 			e.printStackTrace();
 		}
@@ -42,7 +48,7 @@ public class Websocket implements TweetReceiver {
 	@OnClose
 	public void onClose(Session session, CloseReason reason) {
 		// Handle closing connection here
-		if(stream != null)
+		if (stream != null)
 			stream.stop();
 		this.session = null;
 	}
@@ -50,7 +56,7 @@ public class Websocket implements TweetReceiver {
 	@OnError
 	public void onError(Session session, Throwable throwable) {
 		// Handle error during transport here
-		if(stream != null)
+		if (stream != null)
 			stream.stop();
 		throwable.printStackTrace();
 	}
