@@ -15,6 +15,7 @@ public class Websocket implements TweetReceiver {
 	
 	private Session session;
 	private double north, east, south, west;
+	private TwitterStream stream = null;
 
 	@OnOpen
 	public void onOpen(Session session) {
@@ -30,7 +31,9 @@ public class Websocket implements TweetReceiver {
 			east = boundaries.getEast();
 			south = boundaries.getSouth();
 			west = boundaries.getWest();
-			// TODO: New TwitterStream
+			if(stream != null)
+				stream.stop();
+			stream = new TwitterStream(north, east, south, west, this);
 		} catch (JsonParseException e) {
 			e.printStackTrace();
 		}
@@ -54,7 +57,6 @@ public class Websocket implements TweetReceiver {
 		try {
 			this.session.getBasicRemote().sendText(message.getMessage());
 		} catch (NullPointerException | IOException e) {
-			e.printStackTrace();
 		}
 	}
 
