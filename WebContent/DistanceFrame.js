@@ -22,8 +22,9 @@ function DistanceFrame() {
 		value = Math.round(value / 100);
 		var z = Math.floor(value / 10);
 		value %= 10;
-		button.controlText.innerHTML = '<b>Radius: ' + z + ',' + value + 'km</b>';
-		
+		button.controlText.innerHTML = '<b>Radius: ' + z + ',' + value
+				+ 'km</b>';
+
 		new LTmap().setRadius(distance);
 		if (onchange) {
 			new LTmap().fullRequest();
@@ -40,7 +41,9 @@ function DistanceFrame() {
 	var hidden = true;
 	this.hide;
 	this.show;
-	
+
+	// BEGINN: Vergleiche:
+	// https://developers.google.com/maps/documentation/javascript/examples/control-custom?hl=de
 	var DistanceControl = function(controlDiv, map) {
 
 		// Set CSS styles for the DIV containing the control
@@ -85,6 +88,8 @@ function DistanceFrame() {
 	distanceControlDiv.index = 1000000;
 	new LTmap().getGoogleMap().controls[google.maps.ControlPosition.TOP_RIGHT]
 			.push(distanceControlDiv);
+	// ENDE: Vergleiche:
+	// https://developers.google.com/maps/documentation/javascript/examples/control-custom?hl=de
 
 	$("#DistanceSlider").on("change", null, null, function() {
 		_this.showVal($(this).val(), true);
@@ -93,7 +98,7 @@ function DistanceFrame() {
 	$("#DistanceSlider").on("input", null, null, function() {
 		_this.showVal($(this).val(), false);
 	});
-	
+
 	this.showVal($("#DistanceSlider").val(), false);
 
 	this.hide = function() {
@@ -101,7 +106,7 @@ function DistanceFrame() {
 		$("#DistanceSlider").hide();
 		button.controlUI.style.backgroundColor = 'white';
 	};
-	
+
 	this.fadeout = function() {
 		hidden = true;
 		$("#DistanceSlider").fadeOut('slow');

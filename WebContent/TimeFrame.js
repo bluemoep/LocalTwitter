@@ -71,6 +71,8 @@ function TimeFrame() {
 	this.hide;
 	this.show;
 
+	// BEGINN: Vergleiche:
+	// https://developers.google.com/maps/documentation/javascript/examples/control-custom?hl=de
 	var TimeControl = function(controlDiv, map) {
 
 		// Set CSS styles for the DIV containing the control
@@ -115,6 +117,8 @@ function TimeFrame() {
 	timeControlDiv.index = 1000000;
 	new LTmap().getGoogleMap().controls[google.maps.ControlPosition.TOP_RIGHT]
 			.push(timeControlDiv);
+	// ENDE: Vergleiche:
+	// https://developers.google.com/maps/documentation/javascript/examples/control-custom?hl=de
 
 	$("#TimeSlider").on("change", null, null, function() {
 		_this.showVal($(this).val(), true);
