@@ -192,6 +192,11 @@ body {
 	display: none;
 }
 
+.tweet {
+	max-width: 150px;
+	word-wrap: break-word;
+}
+
 .tweetInfo {
 	padding: 2px;
 }
