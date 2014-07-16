@@ -84,6 +84,8 @@
 				</excludes>
 			</resource>
 		</resources>
+		
+		<sourceDirectory>src</sourceDirectory>
 	</build>
 
 </project>
