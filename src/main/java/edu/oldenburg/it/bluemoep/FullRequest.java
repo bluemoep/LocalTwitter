@@ -42,7 +42,6 @@ public class FullRequest {
 			JsonReader json = Json.createReader(reader);
 			JsonArray statuses = json.readObject().getJsonArray("statuses");
 			for(JsonValue status : statuses) {
-				System.out.println(status.toString());
 				websocket.receive(TweetParser.parse(status.toString()));
 			}
 
