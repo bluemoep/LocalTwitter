@@ -23,7 +23,7 @@ public class FullRequest {
 				"https://api.twitter.com/1.1/search/tweets.json");
 		tr.addParameter("q", "include:retweets since:" + formatter.format(since));
 		tr.addParameter("result_type", "recent");
-		tr.addParameter("count", "250");
+		tr.addParameter("count", "10000");
 		tr.addParameter("geocode",
 				websocket.getLatitude() + "," + websocket.getLongitude()
 						+ ",5km");
