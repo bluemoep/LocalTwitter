@@ -13,6 +13,7 @@ public class WebsocketMessage {
 	private boolean isBoundaries = false;
 	private Boundaries boundaries = null;
 	private double radius = 0;
+	private long time = 0;
 
 	public static WebsocketMessage parse(String message) throws JsonParseException {
 		WebsocketMessage msg = new WebsocketMessage();
@@ -30,10 +31,14 @@ public class WebsocketMessage {
 						jWest.doubleValue());
 				JsonNumber jRadius = root.getJsonNumber("radius");
 				msg.radius = jRadius.doubleValue();
+				JsonNumber jTime = root.getJsonNumber("time");
+				msg.time = jTime.longValue();
 				msg.isBoundaries = true;
 			} else {
 				JsonNumber jRadius = root.getJsonNumber("radius");
 				msg.radius = jRadius.doubleValue();
+				JsonNumber jTime = root.getJsonNumber("time");
+				msg.time = jTime.longValue();
 				msg.isFullRequest = true;
 			}
 		} catch (NullPointerException | IndexOutOfBoundsException e) {
@@ -60,6 +65,10 @@ public class WebsocketMessage {
 	
 	public double getRadius() {
 		return radius;
+	}
+	
+	public long getTime() {
+		return time;
 	}
 
 }
