@@ -196,7 +196,7 @@ function LTmap() {
 		if (!marker.isRead && openedMarker == null)
 			marker.openclick();
 		
-		if(LTmap.soundEnabled)
+		if(LTmap.soundEnabled && !isRead)
 			LTmap.audio.play();
 	};
 
