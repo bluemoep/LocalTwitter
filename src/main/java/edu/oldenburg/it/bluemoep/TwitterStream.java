@@ -39,18 +39,20 @@ public class TwitterStream {
 							receiver.receive(TweetParser.parse(str));
 
 					} catch (IllegalStateException | IOException e) {
+						tr.abort();
 						e.printStackTrace();
 					} catch (NullPointerException e) {
-						// TODO: Close connection
+						tr.abort();
 						break;
 					}
 
 					try {
+						tr.abort();
 						Thread.sleep(10000);
 					} catch (InterruptedException e) {
+						tr.abort();
 						break;
 					}
-					tr.abort();
 				}
 				System.out.println("Stream stopped");
 			}

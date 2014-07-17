@@ -90,4 +90,14 @@ public class Websocket implements TweetReceiver {
 	public double getWest() {
 		return west;
 	}
+
+	@Override
+	public double getLatitude() {
+		return ((getNorth() - getSouth()) / 2) + getSouth();
+	}
+
+	@Override
+	public double getLongitude() {
+		return ((getEast() - getWest()) / 2) + getWest();
+	}
 }

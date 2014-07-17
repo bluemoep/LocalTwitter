@@ -9,4 +9,7 @@ public interface TweetReceiver {
 	public double getSouth();
 	public double getWest();
 	
+	public double getLatitude();
+	public double getLongitude();
+	
 }
