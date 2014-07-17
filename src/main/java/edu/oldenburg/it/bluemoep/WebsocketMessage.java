@@ -12,16 +12,15 @@ public class WebsocketMessage {
 	private boolean isFullRequest = false;
 	private boolean isBoundaries = false;
 	private Boundaries boundaries = null;
+	private double radius = 0;
 
 	public static WebsocketMessage parse(String message) throws JsonParseException {
 		WebsocketMessage msg = new WebsocketMessage();
 		try {
 			// Parse JSON
-			if (message.equals("\"fullRequest\"")) {
-				msg.isFullRequest = true;
-			} else {
-				JsonReader reader = Json.createReader(new StringReader(message));
-				JsonObject root = reader.readObject();
+			JsonReader reader = Json.createReader(new StringReader(message));
+			JsonObject root = reader.readObject();
+			if (root.containsKey("north")) {
 				JsonNumber jNorth = root.getJsonNumber("north");
 				JsonNumber jEast = root.getJsonNumber("east");
 				JsonNumber jSouth = root.getJsonNumber("south");
@@ -29,7 +28,13 @@ public class WebsocketMessage {
 				msg.boundaries = new Boundaries(jNorth.doubleValue(),
 						jEast.doubleValue(), jSouth.doubleValue(),
 						jWest.doubleValue());
+				JsonNumber jRadius = root.getJsonNumber("radius");
+				msg.radius = jRadius.doubleValue();
 				msg.isBoundaries = true;
+			} else {
+				JsonNumber jRadius = root.getJsonNumber("radius");
+				msg.radius = jRadius.doubleValue();
+				msg.isFullRequest = true;
 			}
 		} catch (NullPointerException | IndexOutOfBoundsException e) {
 			throw new JsonParseException();
@@ -51,6 +56,10 @@ public class WebsocketMessage {
 
 	public Boundaries getBoundaries() {
 		return boundaries;
+	}
+	
+	public double getRadius() {
+		return radius;
 	}
 
 }

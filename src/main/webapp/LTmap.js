@@ -266,13 +266,16 @@ function LTmap() {
 			north : northEast.lat(),
 			east : northEast.lng(),
 			south : southWest.lat(),
-			west : southWest.lng()
+			west : southWest.lng(),
+			radius : circle.getRadius()
 		};
 		new Websocket().send(boundaries);
 	};
 	
 	this.fullRequest = function() {
-		new Websocket().send('fullRequest');
+		new Websocket().send({
+			radius : circle.getRadius()
+		});
 	};
 	
 	this.setRadius = function(meter) {

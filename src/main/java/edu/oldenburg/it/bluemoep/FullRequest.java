@@ -16,7 +16,7 @@ import org.apache.http.HttpResponse;
 
 public class FullRequest {
 
-	public static void doRequest(Websocket websocket) {
+	public static void doRequest(Websocket websocket, double radius) {
 		Date since = new Date(new Date().getTime() - 14 * 24 * 60 * 60 * 1000);
 		DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 		TwitterRequest tr = new TwitterRequest(TwitterRequest.Method.GET,
@@ -26,7 +26,7 @@ public class FullRequest {
 		tr.addParameter("count", "100");
 		tr.addParameter("geocode",
 				websocket.getLatitude() + "," + websocket.getLongitude()
-						+ ",5km");
+						+ "," + (radius / 1000) + "km");
 
 		HttpResponse httpResponse = tr.doRequest();
 

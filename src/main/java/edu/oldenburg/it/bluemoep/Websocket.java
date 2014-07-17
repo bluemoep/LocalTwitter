@@ -37,10 +37,10 @@ public class Websocket implements TweetReceiver {
 				if (stream != null)
 					stream.stop();
 				stream = new TwitterStream(north, east, south, west, this);
-				FullRequest.doRequest(this);
+				FullRequest.doRequest(this, msg.getRadius());
 			} else if (msg.isFullRequest()) {
 				System.out.println("FullRequest in work.");
-				FullRequest.doRequest(this);
+				FullRequest.doRequest(this, msg.getRadius());
 			}
 		} catch (JsonParseException e) {
 			e.printStackTrace();
