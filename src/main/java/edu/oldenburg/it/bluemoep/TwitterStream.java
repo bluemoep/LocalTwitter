@@ -50,6 +50,7 @@ public class TwitterStream {
 					} catch (InterruptedException e) {
 						break;
 					}
+					tr.abort();
 				}
 				System.out.println("Stream stopped");
 			}

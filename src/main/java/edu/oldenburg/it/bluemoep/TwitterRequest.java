@@ -33,6 +33,8 @@ public class TwitterRequest {
 	protected Method method;
 	protected String url;
 	
+	protected HttpRequestBase httpRequest = null;
+	
 	public enum Method {
 		GET, POST;
 	}
@@ -51,7 +53,6 @@ public class TwitterRequest {
 	}
 
 	public HttpResponse doRequest() {
-		HttpRequestBase httpRequest;
 		if(method == Method.POST)
 			httpRequest = new HttpPost(url + "?" + getParameterString());
 		else
@@ -72,6 +73,11 @@ public class TwitterRequest {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	public void abort() {
+		if(httpRequest != null)
+			httpRequest.abort();
 	}
 
 	private String getParameterString() {
