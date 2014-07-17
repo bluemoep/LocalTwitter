@@ -252,7 +252,7 @@ function LTmap() {
 			return;
 		this.cleanMarkers();
 		// Avoid Re-Requests on Twitter Streaming
-		var temp = circle = new google.maps.Circle({
+		var temp = new google.maps.Circle({
 			strokeOpacity : 0,
 			fillOpacity : 0,
 			center : circle.center,

@@ -17,11 +17,10 @@ public class WebsocketMessage {
 		WebsocketMessage msg = new WebsocketMessage();
 		try {
 			// Parse JSON
-			JsonReader reader = Json.createReader(new StringReader(message));
-			String test = reader.toString();
-			if (test.equals("fullRequest")) {
+			if (message.equals("\"fullRequest\"")) {
 				msg.isFullRequest = true;
 			} else {
+				JsonReader reader = Json.createReader(new StringReader(message));
 				JsonObject root = reader.readObject();
 				JsonNumber jNorth = root.getJsonNumber("north");
 				JsonNumber jEast = root.getJsonNumber("east");

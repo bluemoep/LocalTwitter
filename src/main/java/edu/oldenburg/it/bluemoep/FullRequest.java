@@ -7,6 +7,11 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.json.Json;
+import javax.json.JsonArray;
+import javax.json.JsonReader;
+import javax.json.JsonValue;
+
 import org.apache.http.HttpResponse;
 
 public class FullRequest {
@@ -16,11 +21,12 @@ public class FullRequest {
 		DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 		TwitterRequest tr = new TwitterRequest(TwitterRequest.Method.GET,
 				"https://api.twitter.com/1.1/search/tweets.json");
-		tr.addParameter("q", "since:" + formatter.format(since));
+		tr.addParameter("q", "include:retweets since:" + formatter.format(since));
 		tr.addParameter("result_type", "recent");
+		tr.addParameter("count", "250");
 		tr.addParameter("geocode",
 				websocket.getLatitude() + "," + websocket.getLongitude()
-						+ ",5.1km");
+						+ ",5km");
 
 		HttpResponse httpResponse = tr.doRequest();
 
@@ -33,9 +39,12 @@ public class FullRequest {
 			reader = new BufferedReader(new InputStreamReader(httpResponse
 					.getEntity().getContent()));
 
-			String str;
-			while ((str = reader.readLine()) != null)
-				websocket.receive(TweetParser.parse(str));
+			JsonReader json = Json.createReader(reader);
+			JsonArray statuses = json.readObject().getJsonArray("statuses");
+			for(JsonValue status : statuses) {
+				System.out.println(status.toString());
+				websocket.receive(TweetParser.parse(status.toString()));
+			}
 
 		} catch (IllegalStateException | IOException e) {
 			e.printStackTrace();
