@@ -272,7 +272,7 @@ function LTmap() {
 	};
 	
 	this.fullRequest = function() {
-		new Websocket.send('fullRequest');
+		new Websocket().send('fullRequest');
 	};
 	
 	this.setRadius = function(meter) {
