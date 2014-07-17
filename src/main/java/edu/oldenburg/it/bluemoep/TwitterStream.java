@@ -18,6 +18,7 @@ public class TwitterStream {
 			public void run() {
 				while (run) {
 					TwitterRequest tr = new TwitterRequest(
+							TwitterRequest.Method.POST,
 							"https://stream.twitter.com/1.1/statuses/filter.json");
 					tr.addParameter("locations", west + "," + south + ","
 							+ east + "," + north);
@@ -39,11 +40,11 @@ public class TwitterStream {
 
 					} catch (IllegalStateException | IOException e) {
 						e.printStackTrace();
-					} catch(NullPointerException e) {
+					} catch (NullPointerException e) {
 						// TODO: Close connection
 						break;
 					}
-					
+
 					try {
 						Thread.sleep(10000);
 					} catch (InterruptedException e) {
