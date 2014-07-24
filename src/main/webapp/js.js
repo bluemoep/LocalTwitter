@@ -58,6 +58,7 @@ $(document).ready(function() {
 	new DistanceFrame();
 	new TimeFrame();
 	new Websocket();
+	new Hotkeys();
 });
 
 function sampleMarkers() {
