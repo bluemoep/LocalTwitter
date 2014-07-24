@@ -27,9 +27,11 @@ Abhängigkeiten
 Besondere Hinweise
 ------------------
 Die Java-Klassen (Server) finden sich im Ordner src/main/java im Package edu.oldenburg.it.bluemoep.
+
 Alle Client-Inhalte finden sich im Ordner src/main/webapp.
 
 Hotkeys
 -------
 Strg+Enter: Nachricht senden
+
 Strg+M: Nachrichtenfenster fokussieren
