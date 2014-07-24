@@ -15,7 +15,9 @@ import oauth.signpost.exception.OAuthMessageSignerException;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 public class TwitterRequest {
@@ -28,13 +30,21 @@ public class TwitterRequest {
 	protected OAuthConsumer oAuthConsumer;
 
 	protected HashMap<String, String> parameters;
+	protected Method method;
 	protected String url;
+	
+	protected HttpRequestBase httpRequest = null;
+	
+	public enum Method {
+		GET, POST;
+	}
 
-	public TwitterRequest(String url) {
+	public TwitterRequest(Method method, String url) {
 		oAuthConsumer = new CommonsHttpOAuthConsumer(oauth_consumer_key,
 				oauth_consumer_secret);
 		oAuthConsumer.setTokenWithSecret(oauth_token, oauth_token_secret);
 		parameters = new HashMap<String, String>();
+		this.method = method;
 		this.url = url;
 	}
 
@@ -43,25 +53,31 @@ public class TwitterRequest {
 	}
 
 	public HttpResponse doRequest() {
-		HttpPost httpPost = new HttpPost(url + "?" + getParameterString());
+		if(method == Method.POST)
+			httpRequest = new HttpPost(url + "?" + getParameterString());
+		else
+			httpRequest = new HttpGet(url + "?" + getParameterString());
 
 		try {
-			oAuthConsumer.sign(httpPost);
+			oAuthConsumer.sign(httpRequest);
 		} catch (OAuthMessageSignerException | OAuthExpectationFailedException
 				| OAuthCommunicationException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 
 		// send the request
 		HttpClient httpClient = new DefaultHttpClient();
 		try {
-			return httpClient.execute(httpPost);
+			return httpClient.execute(httpRequest);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	public void abort() {
+		if(httpRequest != null)
+			httpRequest.abort();
 	}
 
 	private String getParameterString() {

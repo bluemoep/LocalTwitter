@@ -31,7 +31,7 @@ public class MessageReceiver extends HttpServlet {
 		System.out.println("Lat: " + lat);
 		System.out.println("Lng: " + lng);
 
-		TwitterRequest tr = new TwitterRequest("https://api.twitter.com/1.1/statuses/update.json");
+		TwitterRequest tr = new TwitterRequest(TwitterRequest.Method.POST, "https://api.twitter.com/1.1/statuses/update.json");
 		tr.addParameter("status", message);
 		tr.addParameter("lat", lat);
 		tr.addParameter("long", lng);

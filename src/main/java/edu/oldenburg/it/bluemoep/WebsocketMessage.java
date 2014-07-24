@@ -12,17 +12,16 @@ public class WebsocketMessage {
 	private boolean isFullRequest = false;
 	private boolean isBoundaries = false;
 	private Boundaries boundaries = null;
+	private double radius = 0;
+	private long time = 0;
 
 	public static WebsocketMessage parse(String message) throws JsonParseException {
 		WebsocketMessage msg = new WebsocketMessage();
 		try {
 			// Parse JSON
 			JsonReader reader = Json.createReader(new StringReader(message));
-			String test = reader.toString();
-			if (test.equals("fullRequest")) {
-				msg.isFullRequest = true;
-			} else {
-				JsonObject root = reader.readObject();
+			JsonObject root = reader.readObject();
+			if (root.containsKey("north")) {
 				JsonNumber jNorth = root.getJsonNumber("north");
 				JsonNumber jEast = root.getJsonNumber("east");
 				JsonNumber jSouth = root.getJsonNumber("south");
@@ -30,7 +29,17 @@ public class WebsocketMessage {
 				msg.boundaries = new Boundaries(jNorth.doubleValue(),
 						jEast.doubleValue(), jSouth.doubleValue(),
 						jWest.doubleValue());
+				JsonNumber jRadius = root.getJsonNumber("radius");
+				msg.radius = jRadius.doubleValue();
+				JsonNumber jTime = root.getJsonNumber("time");
+				msg.time = jTime.longValue();
 				msg.isBoundaries = true;
+			} else {
+				JsonNumber jRadius = root.getJsonNumber("radius");
+				msg.radius = jRadius.doubleValue();
+				JsonNumber jTime = root.getJsonNumber("time");
+				msg.time = jTime.longValue();
+				msg.isFullRequest = true;
 			}
 		} catch (NullPointerException | IndexOutOfBoundsException e) {
 			throw new JsonParseException();
@@ -52,6 +61,14 @@ public class WebsocketMessage {
 
 	public Boundaries getBoundaries() {
 		return boundaries;
+	}
+	
+	public double getRadius() {
+		return radius;
+	}
+	
+	public long getTime() {
+		return time;
 	}
 
 }

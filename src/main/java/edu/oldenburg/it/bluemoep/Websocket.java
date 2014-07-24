@@ -37,10 +37,10 @@ public class Websocket implements TweetReceiver {
 				if (stream != null)
 					stream.stop();
 				stream = new TwitterStream(north, east, south, west, this);
-				FullRequest.doRequest(this);
+				FullRequest.doRequest(this, msg);
 			} else if (msg.isFullRequest()) {
 				System.out.println("FullRequest in work.");
-				FullRequest.doRequest(this);
+				FullRequest.doRequest(this, msg);
 			}
 		} catch (JsonParseException e) {
 			e.printStackTrace();
@@ -89,5 +89,15 @@ public class Websocket implements TweetReceiver {
 	@Override
 	public double getWest() {
 		return west;
+	}
+
+	@Override
+	public double getLatitude() {
+		return ((getNorth() - getSouth()) / 2) + getSouth();
+	}
+
+	@Override
+	public double getLongitude() {
+		return ((getEast() - getWest()) / 2) + getWest();
 	}
 }

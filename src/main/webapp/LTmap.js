@@ -196,7 +196,7 @@ function LTmap() {
 		if (!marker.isRead && openedMarker == null)
 			marker.openclick();
 		
-		if(LTmap.soundEnabled)
+		if(LTmap.soundEnabled && !isRead)
 			LTmap.audio.play();
 	};
 
@@ -252,7 +252,7 @@ function LTmap() {
 			return;
 		this.cleanMarkers();
 		// Avoid Re-Requests on Twitter Streaming
-		var temp = circle = new google.maps.Circle({
+		var temp = new google.maps.Circle({
 			strokeOpacity : 0,
 			fillOpacity : 0,
 			center : circle.center,
@@ -266,13 +266,18 @@ function LTmap() {
 			north : northEast.lat(),
 			east : northEast.lng(),
 			south : southWest.lat(),
-			west : southWest.lng()
+			west : southWest.lng(),
+			radius : circle.getRadius(),
+			time : new TimeFrame().getTime()
 		};
 		new Websocket().send(boundaries);
 	};
 	
 	this.fullRequest = function() {
-		new Websocket.send('fullRequest');
+		new Websocket().send({
+			radius : circle.getRadius(),
+			time : new TimeFrame().getTime()
+		});
 	};
 	
 	this.setRadius = function(meter) {

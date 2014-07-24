@@ -8,7 +8,7 @@ function GeoLocation() {
 	
 	var lat = 0;
 	var lng = 0;
-	var accuracy = 100;
+	var accuracy = 100000;
 	var oldGeo = null;
 
 	var success = function(geo) {
