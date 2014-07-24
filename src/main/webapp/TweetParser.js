@@ -142,7 +142,7 @@ function TweetParser(tweet) {
 		var tweetText = document.createElement('div');
 		$(div).addClass('tweet');
 		$(info).addClass('tweetInfo').appendTo(div);
-		$(author).attr('href', 'https://twitter.com/' + tweet.user.name).html(tweet.user.name).addClass('tweetAuthor').appendTo(info);
+		$(author).attr('href', 'https://twitter.com/' + tweet.user.screen_name).html(tweet.user.name).addClass('tweetAuthor').appendTo(info);
 		$(datetime).html(new Date(tweet.created_at).toLocaleTimeString()).addClass('tweetDateTime').appendTo(info);
 		$(tweetText).html(text).addClass('tweetText').appendTo(div);
 		return div;
