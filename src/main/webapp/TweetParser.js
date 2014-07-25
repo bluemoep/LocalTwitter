@@ -115,7 +115,7 @@ function TweetParser(tweet) {
 	
 	this.getDate = function() {
 		var date = new Date(tweet.created_at);
-		if(!date || isNaN(date))
+		if(!date || isNaN(date) || isNaN(date.getTime()))
 			// Source: https://dev.twitter.com/discussions/1063 by Vel Murugan S
 			date = new Date(Date.parse(tweet.created_at.replace(/( +)/, ' UTC$1')));
 		return date;
