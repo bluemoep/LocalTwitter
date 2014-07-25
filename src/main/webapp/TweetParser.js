@@ -112,6 +112,13 @@ function TweetParser(tweet) {
 		parseMedia();
 		return this.getText();
 	};
+	
+	this.getDate = function() {
+		var date = new Date(tweet.created_at);
+		if(!date)
+			date = new Date(Date.parse(tweet.created_at.replace(/( +)/, ' UTC$1')));
+		return date;
+	};
 
 	this.getText = function() {
 		if (textChanged) {
@@ -143,7 +150,7 @@ function TweetParser(tweet) {
 		$(div).addClass('tweet');
 		$(info).addClass('tweetInfo').appendTo(div);
 		$(author).attr('href', 'https://twitter.com/' + tweet.user.screen_name).html(tweet.user.name).addClass('tweetAuthor').appendTo(info);
-		$(datetime).html(new Date(tweet.created_at).toLocaleTimeString()).addClass('tweetDateTime').appendTo(info);
+		$(datetime).html(this.getDate().toLocaleTimeString()).addClass('tweetDateTime').appendTo(info);
 		$(tweetText).html(text).addClass('tweetText').appendTo(div);
 		return div;
 	};

@@ -41,7 +41,7 @@ function MessageStorage() {
 	this.addMessage = function(tweet) {
 		var message = {
 			id : tweet.id,
-			createdAt : new Date(tweet.created_at),
+			createdAt : new TweetParser(tweet).getDate(),
 			readStatus : false,
 			tweet : tweet,
 			next : null

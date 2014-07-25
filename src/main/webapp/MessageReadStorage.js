@@ -34,7 +34,7 @@ function MessageReadStorage() {
 	}, 10000);
 	
 	this.addMessage = function(tweet) {
-		messagesRead[tweet.id_str] = new Date(tweet.created_at);
+		messagesRead[tweet.id_str] = new TweetParser(tweet).getDate();
 		flushTimer();
 	};
 	

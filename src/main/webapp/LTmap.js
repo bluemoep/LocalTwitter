@@ -108,7 +108,7 @@ function LTmap() {
 			if (circle.contains(new google.maps.LatLng(
 					tweet.coordinates.coordinates[1],
 					tweet.coordinates.coordinates[0]))
-					&& new Date(tweet.created_at) > new Date(new Date()
+					&& new TweetParser(tweet).getDate() > new Date(new Date()
 							- new TimeFrame().getTime())) {
 				return true;
 			} else
@@ -129,7 +129,7 @@ function LTmap() {
 		if(openedMarker == null)
 			return;
 		var content = openedMarker.message.content;
-		$('div.tweetDateTime', content).html('vor ' + TimeFrame.parse(new Date() - new Date(openedMarker.tweet.created_at)));
+		$('div.tweetDateTime', content).html('vor ' + TimeFrame.parse(new Date() - new TweetParser(openedMarker.tweet).getDate()));
 	};
 
 	this.cleanMarkers = function() {
