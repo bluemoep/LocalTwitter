@@ -37,3 +37,7 @@ Strg+M: Nachrichtenfenster fokussieren
 Video
 -----
 [https://github.com/bluemoep/LocalTwitter/blob/master/Presentations/Abschluss/Abschluss.mp4](../master/Presentations/Abschluss/Abschluss.mp4)
+
+WAR-File
+--------
+[https://drone.io/github.com/bluemoep/LocalTwitter/files/target/bluemoep-LocalTwitter-0.1.0.war](https://drone.io/github.com/bluemoep/LocalTwitter/files/target/bluemoep-LocalTwitter-0.1.0.war)
