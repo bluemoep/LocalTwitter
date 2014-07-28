@@ -36,4 +36,4 @@ Strg+M: Nachrichtenfenster fokussieren
 
 Video
 -----
-[https://github.com/bluemoep/LocalTwitter/blob/master/Presentations/Abschluss/Abschluss.mp4](../blob/master/Presentations/Abschluss/Abschluss.mp4)
+[https://github.com/bluemoep/LocalTwitter/blob/master/Presentations/Abschluss/Abschluss.mp4](../master/Presentations/Abschluss/Abschluss.mp4)
